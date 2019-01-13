@@ -23,13 +23,11 @@ class MesCommentaires extends Component {
    * getComFromUser
    * Action getAllCommentFromUser triggered
    * pour recupérer tout les comments du user connecté
-   * @return
    */
   getComFromUser() {
     const { auth } = this.props
 
     getAllCommentFromUser(auth.auth.username).then((response) => {
-      console.log('response:    ', response)
       this.setState({
         allComments: response
       })
@@ -63,8 +61,8 @@ class MesCommentaires extends Component {
    * @params idMap, comment, date, id, idPost, categorie
    */
   displayAllCommentsFromUser(idMap, comment, date, id, idPost, categorie) {
-    console.log('id: ', id)
-    console.log('idPost: ', idPost)
+    const AMJ = date.substring(0, 10)
+    const H = date.substring(11, 19)
 
     return (
       <div key={idMap}>
@@ -72,7 +70,7 @@ class MesCommentaires extends Component {
         <h5>
           Date:
           {' '}
-          {date}
+          {`${AMJ}/${H}`}
           {' '}
         </h5>
         Catérogie:
@@ -106,7 +104,6 @@ class MesCommentaires extends Component {
  * De sorte a pourvoir vérifier si l'utilisateur est connecté
  */
 function mapStateToProps(state) {
-  console.log('state: ', state)
   return {
     auth: state.auth
   }

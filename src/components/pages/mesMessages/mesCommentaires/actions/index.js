@@ -21,11 +21,10 @@ const getComment = comments => ({
 
 /**
   * Action de récupérer chaques com d'user connecté
-  * @param {Object} identifier
+  * @param {Object} username
   * @return {Object} Promise response
   */
 export function getAllCommentFromUser(username) {
-  console.log(username)
   return new Promise((resolve) => {
     axios.get(`${apiPath}/api/comments/${username}`)
       .then((response) => {

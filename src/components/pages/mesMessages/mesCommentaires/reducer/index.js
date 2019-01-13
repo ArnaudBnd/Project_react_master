@@ -20,7 +20,6 @@ const commentsState = {
   * @param {Object, Object} state initial, action
   */
 const MesComments = (state = commentsState, action) => {
-  console.log(action)
   switch (action.type) {
     case 'GET_ALL_COMM_FROM_USER':
       return {
