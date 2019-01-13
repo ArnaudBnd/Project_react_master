@@ -1,0 +1,37 @@
+postgres: could not access directory "/usr/local/pgsql/data": No such file or directory
+Run initdb or pg_basebackup to initialize a PostgreSQL data directory.
+
+2018-10-23 21:06:23.364 CEST [7624] FATAL:  role "postgres" does not exist
+2018-10-23 21:06:23.365 CEST [7625] FATAL:  role "postgres" does not exist
+2018-10-23 21:07:59.413 CEST [7652] ERROR:  database "blog" already exists
+2018-10-23 21:07:59.413 CEST [7652] STATEMENT:  CREATE DATABASE blog;
+2018-10-23 21:09:13.943 CEST [7701] FATAL:  role "postgres" does not exist
+2018-10-23 21:09:13.943 CEST [7702] FATAL:  role "postgres" does not exist
+2018-10-23 21:10:31.922 CEST [7726] FATAL:  role "postgres" does not exist
+2018-10-23 21:10:31.922 CEST [7727] FATAL:  role "postgres" does not exist
+2018-10-23 21:11:31.907 CEST [7743] ERROR:  syntax error at or near "select" at character 20
+2018-10-23 21:11:31.907 CEST [7743] STATEMENT:  select * from user
+	select * from users
+	select * from users;
+2018-10-23 21:11:41.745 CEST [7743] ERROR:  relation "users" does not exist at character 15
+2018-10-23 21:11:41.745 CEST [7743] STATEMENT:  select * from users;
+2018-10-23 21:12:01.265 CEST [7763] FATAL:  role "postgres" does not exist
+2018-10-23 21:12:01.265 CEST [7762] FATAL:  role "postgres" does not exist
+2018-10-23 21:16:04.031 CEST [7743] ERROR:  relation "users" does not exist at character 15
+2018-10-23 21:16:04.031 CEST [7743] STATEMENT:  select * from users;
+2018-10-24 09:20:07.173 CEST [8027] FATAL:  role "postgres" does not exist
+2018-10-24 09:20:07.173 CEST [8026] FATAL:  role "postgres" does not exist
+2018-10-24 13:45:48.804 CEST [8643] FATAL:  role "postgres" does not exist
+2018-10-24 13:45:48.804 CEST [8644] FATAL:  role "postgres" does not exist
+2018-10-24 13:47:18.019 CEST [8665] FATAL:  role "postgres" does not exist
+2018-10-24 13:47:18.023 CEST [8666] FATAL:  role "postgres" does not exist
+2018-10-24 13:50:53.107 CEST [8711] FATAL:  role "postgres" does not exist
+2018-10-24 13:50:53.107 CEST [8712] FATAL:  role "postgres" does not exist
+2018-10-24 13:51:01.896 CEST [8719] FATAL:  role "postgres" does not exist
+2018-10-24 13:51:01.901 CEST [8720] FATAL:  role "postgres" does not exist
+2018-10-24 13:51:42.498 CEST [8729] FATAL:  role "postgres" does not exist
+2018-10-24 13:51:42.511 CEST [8730] FATAL:  role "postgres" does not exist
+2018-10-24 14:04:20.303 CEST [1138] LOG:  received smart shutdown request
+2018-10-24 14:04:20.317 CEST [1138] LOG:  worker process: logical replication launcher (PID 1145) exited with exit code 1
+2018-10-24 14:04:20.317 CEST [1140] LOG:  shutting down
+2018-10-24 14:04:20.830 CEST [1138] LOG:  database system is shut down
