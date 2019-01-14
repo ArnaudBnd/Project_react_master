@@ -49,7 +49,7 @@ class NavBar extends Component {
             </li>
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                moi
+                About me
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a className="dropdown-item" href="/profil">Editer mon profil</a>
