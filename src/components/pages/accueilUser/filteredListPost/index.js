@@ -9,7 +9,8 @@ class FilteredListPost extends Component {
 
     this.state = {
       allPosts: [],
-      inputValue: ''
+      inputValue: '',
+      allPostForReset: []
     }
 
     this.getAllPost = this.getAllPost.bind(this)
@@ -22,14 +23,19 @@ class FilteredListPost extends Component {
   }
 
   onChange(e) {
-    this.setState({ inputValue: e.target.value })
+    const { allPostForReset } = this.state
+
+    this.setState({
+      inputValue: e.target.value,
+      allPosts: allPostForReset
+    })
   }
 
   onSubmit(e) {
     e.preventDefault()
     const { allPosts, inputValue } = this.state
     const tmp = allPosts.filter(element => (
-      element.title.indexOf(inputValue) !== -1
+      element.title.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
     ))
     this.setState({
       allPosts: tmp
@@ -39,7 +45,8 @@ class FilteredListPost extends Component {
   getAllPost() {
     getAllPost().then((response) => {
       this.setState({
-        allPosts: response
+        allPosts: response,
+        allPostForReset: response
       })
     })
   }
@@ -51,7 +58,7 @@ class FilteredListPost extends Component {
       <div>
         <h1>Voici le champs de recherche</h1>
         <form id="formFoot" onSubmit={this.onSubmit}>
-          <input type="text" id="searchPost" onChange={this.onChange} placeholder="Search" />
+          <input type="text" onChange={this.onChange} placeholder="Search" />
           <button type="submit" className="btn btn-danger">
             Rechercher
           </button>
