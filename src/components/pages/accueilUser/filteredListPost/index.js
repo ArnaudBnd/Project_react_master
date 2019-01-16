@@ -42,6 +42,10 @@ class FilteredListPost extends Component {
     })
   }
 
+  /**
+   * getAllPost
+   * actions getAllPost
+   */
   getAllPost() {
     getAllPost().then((response) => {
       this.setState({

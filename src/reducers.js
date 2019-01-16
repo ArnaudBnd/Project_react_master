@@ -7,6 +7,7 @@ import profilUser from './components/pages/profil/reducer'
 import mesComments from './components/pages/mesMessages/mesCommentaires/reducer'
 import mesPosts from './components/pages/mesMessages/mesPosts/reducer'
 import allPosts from './components/pages/accueilUser/filteredListPost/reducer'
+import allComs from './components/pages/accueilUser/listPost/reducer'
 
 export default combineReducers({
   user,
@@ -15,5 +16,6 @@ export default combineReducers({
   profilUser,
   mesComments,
   mesPosts,
-  allPosts
+  allPosts,
+  allComs
 })
