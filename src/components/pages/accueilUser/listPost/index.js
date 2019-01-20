@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { getAllComToDisplay } from './actions/index'
+import Categories from '../categories/index.js'
+import '../index.css'
 
 class ListPost extends Component {
   constructor(props) {
@@ -48,49 +50,70 @@ class ListPost extends Component {
     const { allPosts } = this.props
 
     return (
-      <div>
+      <div className="container">
         <h1>Voici la liste de tout les posts</h1>
-        {
-          allPosts
-            .map((post, idMap) => (
-              <div key={idMap}>
-                <hr />
-                <h2>
-                  Sujet:
-                  {' '}
-                  {post.title}
-                </h2>
-                Réponses:
-                {' '}
-                {this.displayNbrOfComs(post.id)}
-                <h5>
-                  <span className="glyphicon glyphicon-time" />
-                  {' '}
-                  Post by
-                  {' '}
-                  {post.username}
-                  ,
-                  {' '}
-                  {new Date(post.created_at).toLocaleDateString()}
-                  .
-                </h5>
-                <h5>
-                  Forum:
-                  {' '}
-                  <span className="label label-danger">Foot</span>
-                </h5>
-                <br />
-                <p>
-                  Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-                  consequat. Excepteur sint occaecat cupidatat ....
-                  <br />
-                  {post.content}
-                </p>
-              </div>
-            ))
-        }
+        <div className="row">
+          <div className="col-lg-8 col-md-8">
+            {
+              allPosts
+                .map((post, idMap) => (
+                  <div className="post" key={idMap}>
+                    <div className="wrap-ut pull-left">
+                      <div className="userinfo pull-left">
+                        <div className="avatar">
+                          <i className="glyphicon glyphicon-user" />
+                          <div className="status green">&nbsp;</div>
+                        </div>
+
+                        <div className="icons">
+                          <img src="images/icon1.jpg" alt="" />
+                          <img src="images/icon4.jpg" alt="" />
+                        </div>
+                      </div>
+                      <div className="posttext pull-left">
+                        <h2>
+                          <a href="#">
+                            {post.title}
+                          </a>
+                        </h2>
+                        <p>
+                          Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing
+                          elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                          enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                          <br />
+                          {post.content}
+                        </p>
+                      </div>
+                      <div className="clearfix" />
+                    </div>
+                    <div className="postinfo pull-left">
+                      <div className="comments">
+                        <div className="commentbg">
+                          {this.displayNbrOfComs(post.id)}
+                          <div className="mark" />
+                        </div>
+                      </div>
+                      <div className="views">
+                        <i className="fa fa-eye" />
+                        {' '}
+                        by:
+                        {' '}
+                        {post.username}
+                      </div>
+                      <div className="time">
+                        <i className="fa fa-clock-o" />
+                        {' '}
+                        {new Date(post.created_at).toLocaleDateString()}
+                        {' '}
+                      </div>
+                    </div>
+                    <div className="clearfix" />
+                  </div>
+                ))
+            }
+          </div>
+          <Categories />
+        </div>
       </div>
     )
   }

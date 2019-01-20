@@ -59,15 +59,24 @@ class FilteredListPost extends Component {
     const { allPosts } = this.state
 
     return (
-      <div>
-        <h1>Voici le champs de recherche</h1>
-        <form id="formFoot" onSubmit={this.onSubmit}>
-          <input type="text" onChange={this.onChange} placeholder="Search" />
-          <button type="submit" className="btn btn-danger">
-            Rechercher
-          </button>
-        </form>
-        <List allPosts={allPosts} />
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-8 col-md-8">
+            <h1>Voici le champs de recherche</h1>
+            <form id="formFoot" onSubmit={this.onSubmit}>
+              <div className="pull-left txt">
+                <input type="text" onChange={this.onChange} className="form-control" placeholder="Search Topics" />
+              </div>
+              <div className="pull-left">
+                <button className="btn btn-default" type="submit">
+                  <i className="fa fa-search" />
+                </button>
+              </div>
+            </form>
+            <div className="clearfix" />
+            <List allPosts={allPosts} />
+          </div>
+        </div>
       </div>
     )
   }

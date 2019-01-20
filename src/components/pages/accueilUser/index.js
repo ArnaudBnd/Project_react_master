@@ -5,9 +5,9 @@ import './index.css'
 class AccueilUser extends Component {
   render() {
     return (
-      <div id="contenaire" className="container">
+      <section className="content">
         <FilteredListPost />
-      </div>
+      </section>
     )
   }
 }
