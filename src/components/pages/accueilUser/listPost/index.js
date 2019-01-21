@@ -48,6 +48,9 @@ class ListPost extends Component {
 
   render() {
     const { allPosts } = this.props
+    const style = {
+      fontSize: '24px'
+    }
 
     return (
       <div className="container">
@@ -61,7 +64,7 @@ class ListPost extends Component {
                     <div className="wrap-ut pull-left">
                       <div className="userinfo pull-left">
                         <div className="avatar">
-                          <i className="glyphicon glyphicon-user" />
+                          <i style={style} className="glyphicon glyphicon-user" />
                           <div className="status green">&nbsp;</div>
                         </div>
 
@@ -72,7 +75,7 @@ class ListPost extends Component {
                       </div>
                       <div className="posttext pull-left">
                         <h2>
-                          <a href="#">
+                          <a href={`/displayPostFromAccueil/${post.id}`}>
                             {post.title}
                           </a>
                         </h2>
@@ -112,7 +115,7 @@ class ListPost extends Component {
                 ))
             }
           </div>
-          <Categories />
+          <Categories allPosts={allPosts} />
         </div>
       </div>
     )

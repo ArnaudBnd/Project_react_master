@@ -3,6 +3,8 @@ import '../index.css'
 
 class Categories extends Component {
   render() {
+    const { allPosts } = this.props
+
     return (
       <div className="col-lg-4 col-md-4">
         <div className="sidebarblock">
@@ -11,21 +13,27 @@ class Categories extends Component {
           <div className="blocktxt">
             <ul className="cats">
               <li>
-                <a href="#">
-                  Trading for Money
-                  <span className="badge pull-right">20</span>
+                <a href="/foot">
+                  Foot
+                  <span className="badge pull-right">{allPosts.length}</span>
                 </a>
               </li>
               <li>
                 <a href="#">
-                  Trading for Money
-                  <span className="badge pull-right">20</span>
+                  Tennis
+                  <span className="badge pull-right">10</span>
                 </a>
               </li>
               <li>
                 <a href="#">
-                  Trading for Money
-                  <span className="badge pull-right">20</span>
+                  Rugby
+                  <span className="badge pull-right">3</span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  Judo
+                  <span className="badge pull-right">16</span>
                 </a>
               </li>
             </ul>

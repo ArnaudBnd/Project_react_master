@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import Slider from './carousel/slider.js'
 
 class Accueil extends Component {
   render() {
     return (
       <div>
-        <Slider />
+        <h1>SALUT</h1>
       </div>
     )
   }

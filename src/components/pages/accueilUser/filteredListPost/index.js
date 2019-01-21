@@ -62,18 +62,20 @@ class FilteredListPost extends Component {
       <div className="container">
         <div className="row">
           <div className="col-lg-8 col-md-8">
-            <h1>Voici le champs de recherche</h1>
-            <form id="formFoot" onSubmit={this.onSubmit}>
-              <div className="pull-left txt">
-                <input type="text" onChange={this.onChange} className="form-control" placeholder="Search Topics" />
-              </div>
-              <div className="pull-left">
-                <button className="btn btn-default" type="submit">
-                  <i className="fa fa-search" />
-                </button>
-              </div>
-            </form>
-            <div className="clearfix" />
+            <div>
+              <hr />
+              <form id="formFoot" onSubmit={this.onSubmit}>
+                <div className="pull-left txt">
+                  <input type="text" onChange={this.onChange} className="form-control" placeholder="Search Post" />
+                </div>
+                <div className="pull-left">
+                  <button className="btn btn-default" type="submit">
+                    <i className="fa fa-search" />
+                  </button>
+                </div>
+              </form>
+            </div>
+            <hr />
             <List allPosts={allPosts} />
           </div>
         </div>
