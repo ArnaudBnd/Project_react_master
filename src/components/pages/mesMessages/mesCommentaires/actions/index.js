@@ -28,8 +28,8 @@ export function getAllCommentFromUser(username) {
   return new Promise((resolve) => {
     axios.get(`${apiPath}/api/comments/${username}`)
       .then((response) => {
-        resolve(response.data.comments)
-        store.dispatch(getComment(response.data.comments))
+        resolve(response.data.comment)
+        store.dispatch(getComment(response.data.comment))
       })
   })
 }

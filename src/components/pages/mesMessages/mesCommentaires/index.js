@@ -89,6 +89,9 @@ class MesCommentaires extends Component {
   }
 
   render() {
+    const { allComments } = this.state
+    console.log(allComments)
+
     return (
       <div>
         {this.commentsFromUser()}
