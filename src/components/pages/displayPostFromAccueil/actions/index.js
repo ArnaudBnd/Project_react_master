@@ -11,19 +11,19 @@ import store from '../../../../store'
 import { apiPath } from '../../../../utils/urlAPI'
 
 /**
-  * emailExists
+  * getPost
   * Dispatch méthode to reducer
-  * @param {Object} isEmailExist
+  * @param {Object} post
   */
-const getPost = post => ({
+const getPost = getPostToDisplay => ({
   type: 'GET_POST_FROM_ID',
-  post
+  getPostToDisplay
 })
 
 /**
   * Action de recupérer le post par id
-  * isExist alors on envoie un mail pour reset le mdp
-  * @param {Object} email
+  *
+  * @param {Object} idPost
   * @return {Object} Promise response
   */
 export function getPostWithId(idPost) {
@@ -42,24 +42,48 @@ export function getPostWithId(idPost) {
   * Dispatch méthode to reducer
   * @param {Object} isEmailExist
   */
-const getCom = com => ({
+const getCom = getComToDisplay => ({
   type: 'GET_COM_FROM_ID',
-  com
+  getComToDisplay
 })
 
 /**
-  * Action de recupérer le post par id
-  * isExist alors on envoie un mail pour reset le mdp
-  * @param {Object} email
+  * Action de recupérer un com par id
+  *
+  * @param {Object} idPost
   * @return {Object} Promise response
   */
 export function getComWithIdPost(idPost) {
   return new Promise((resolve) => {
     axios.get(`${apiPath}/api/comments/display/${idPost}`)
       .then((response) => {
-        // dispatch méthode
         store.dispatch(getCom(response.data.comments))
         resolve(response.data.comments)
+      })
+  })
+}
+
+/**
+  * postCom
+  * Dispatch méthode to reducer
+  * @param {Object} com
+  */
+const postCom = postComToDisplay => ({
+  type: 'POST_COM',
+  postComToDisplay
+})
+
+/**
+  * Action de  post un commentaire
+  * @param {Object} post
+  * @return {Object} Promise response
+  */
+export function postUserComment(comment) {
+  return new Promise((resolve) => {
+    axios.post(`${apiPath}/api/comments/`, comment)
+      .then((response) => {
+        resolve(response.config.data)
+        store.dispatch(postCom(response.config.data))
       })
   })
 }

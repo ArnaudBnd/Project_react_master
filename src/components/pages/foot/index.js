@@ -135,7 +135,7 @@ class Foot extends Component {
     })
 
     if (!isCommentUpdate) {
-      // action ton send data into bdd
+      // action to send data into bdd
       userPostComment(objComment).then(() => {
         getCommentFoot().then((comments) => {
           this.setState({
