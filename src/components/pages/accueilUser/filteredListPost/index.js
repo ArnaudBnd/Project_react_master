@@ -69,9 +69,7 @@ class FilteredListPost extends Component {
                   <input type="text" onChange={this.onChange} className="form-control" placeholder="Search Post" />
                 </div>
                 <div className="pull-left">
-                  <button className="btn btn-default" type="submit">
-                    <i className="fa fa-search" />
-                  </button>
+                  <button type="button" className="btn btn-secondary">rechercher</button>
                 </div>
               </form>
             </div>

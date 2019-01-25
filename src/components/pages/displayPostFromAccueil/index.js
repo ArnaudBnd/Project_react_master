@@ -276,7 +276,16 @@ class DisplayPostFromAccueil extends Component {
   render() {
     return (
       <section className="content">
-        <hr />
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8">
+              <a href="/accueilUser">Discussion général</a>
+              <span className="diviver">&gt;</span>
+              <a href="#">Détail message</a>
+            </div>
+            <hr />
+          </div>
+        </div>
         <div className="container">
           <div className="row">
             {this.showPost()}

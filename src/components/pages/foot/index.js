@@ -182,68 +182,92 @@ class Foot extends Component {
    */
   articleTraining(idMap, title, content, user, date, idPost) {
     const { isCommentUpdate, nameTextarea } = this.state
+    const style = {
+      fontSize: '24px'
+    }
 
     return (
-      <div key={idMap} id="articleTraining">
-        <h4><small>RECENT POSTS</small></h4>
-        <hr />
-        <h2>
-          {title}
-        </h2>
-        <h5>
-          <span className="glyphicon glyphicon-time" />
-          {' '}
-          Post by
-          {' '}
-          {user}
-          ,
-          {' '}
-          {new Date(date).toLocaleDateString()}
-          .
-        </h5>
-        <h5>
-          <span className="label label-danger">Foot</span>
-          <span className="label label-primary">{user}</span>
-        </h5>
-        <br />
-        <p>
-          Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Excepteur sint occaecat cupidatat ....
-          <br />
-          {content}
-        </p>
-        {this.showButtonDelete(user, idPost)}
-        {this.showButtonUpdate(user, idPost)}
-        <div id="buttonCom">
-          {this.showNbrComments(idPost)}
-          {' '}
-          Responses
-          <br />
-          <button type="submit" onClick={e => this.onSubmitDisplayCom(e, idPost)} className="btn btn-primary ">Show more</button>
-        </div>
-        <div id={idPost} style={{ display: 'none' }}>
-          <hr />
-          <h4>Ecrire un Commentaire:</h4>
-          <form id="formComment" onSubmit={e => this.onSubmitComment(e, idPost)}>
-            <div className="form-group">
-              <textarea name={idPost} id="commentaire" onChange={this.handleCommentChange} className="form-control" rows="3" required />
+      <div className="post" key={idMap}>
+        <div className="wrap-ut pull-left">
+          <div className="userinfo pull-left">
+            <div className="avatar">
+              <i style={style} className="glyphicon glyphicon-user" />
+              <div className="status green">&nbsp;</div>
             </div>
-            <button type="submit" className="btn btn-success">{isCommentUpdate ? (idPost === nameTextarea ? 'Mettre a jour le commentaire' : 'Partager') : 'Partager'}</button>
-          </form>
-          <br />
-          <p>
-            Comment(s):
-            {' '}
+
+            <div className="icons">
+              <img src="images/icon1.jpg" alt="" />
+              <img src="images/icon4.jpg" alt="" />
+            </div>
+          </div>
+          <div className="posttext pull-left">
+            <h2>
+              <a href={`/displayPostFromAccueil/${idPost}`}>
+                {title}
+              </a>
+            </h2>
+            <p>
+              Food is my passion. Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit,sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              <br />
+              {content}
+            </p>
+          </div>
+          <div className="clearfix" />
+          <div id="buttonCom">
             {this.showNbrComments(idPost)}
-          </p>
-          <br />
-          {this.showCommentArticle(idPost)}
-          <br />
-          <br />
-          <br />
+            {' '}
+            Responses
+            <br />
+            {this.showButtonDelete(user, idPost)}
+            {this.showButtonUpdate(user, idPost)}
+            <button type="submit" onClick={e => this.onSubmitDisplayCom(e, idPost)} className="btn btn-primary ">Show more</button>
+          </div>
+          <div id={idPost} style={{ display: 'none', paddingLeft: '85px' }}>
+            <hr />
+            <h4>Ecrire un Commentaire:</h4>
+            <form id="formComment" onSubmit={e => this.onSubmitComment(e, idPost)}>
+              <div className="form-group">
+                <textarea name={idPost} id="commentaire" onChange={this.handleCommentChange} className="form-control" rows="3" required />
+              </div>
+              <button type="submit" className="btn btn-success">{isCommentUpdate ? (idPost === nameTextarea ? 'Mettre a jour le commentaire' : 'Partager') : 'Partager'}</button>
+            </form>
+            <br />
+            <p>
+              Comment(s):
+              {' '}
+              {this.showNbrComments(idPost)}
+            </p>
+            <br />
+            {this.showCommentArticle(idPost)}
+            <br />
+            <br />
+            <br />
+          </div>
         </div>
+        <div className="postinfo pull-left">
+          <div className="comments">
+            <div className="commentbg">
+              {this.showNbrComments(idPost)}
+              <div className="mark" />
+            </div>
+          </div>
+          <div className="views">
+            <i className="fa fa-eye" />
+            {' '}
+            by:
+            {' '}
+            {user}
+          </div>
+          <div className="time">
+            <i className="fa fa-clock-o" />
+            {' '}
+            {new Date(date).toLocaleDateString()}
+            {' '}
+          </div>
+        </div>
+        <div className="clearfix" />
       </div>
     )
   }
@@ -554,27 +578,69 @@ class Foot extends Component {
     const { isArticleUpdate } = this.state
 
     return (
-      <div>
-        <div className="col-md-6 col-md-offset-3">
-          <form id="formFoot" onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <h3 className="control-label">Foot</h3>
+      <section className="content">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 col-md-8">
+              <form id="formFoot" onSubmit={this.onSubmit}>
+                <div className="form-group">
+                  <h3 className="control-label">Foot</h3>
+                </div>
+                <div className="form-group">
+                  <h3 className="control-label">Titre</h3>
+                  <input type="text" name="title" className="form-control" onChange={this.onChange} />
+                </div>
+                <div className="form-group">
+                  <h3 className="control-label">Description</h3>
+                  <textarea name="content" className="form-control" id="exampleTextarea" rows="3" onChange={this.onChange} />
+                </div>
+                <button type="submit" className="btn btn-primary">{isArticleUpdate ? 'Mettre à jour le partager' : 'Partager'}</button>
+              </form>
             </div>
-            <div className="form-group">
-              <h3 className="control-label">Titre</h3>
-              <input type="text" name="title" className="form-control" onChange={this.onChange} />
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-8 col-md-8">
+                  {this.showArticleTraining()}
+                </div>
+                <div className="col-lg-4 col-md-4">
+                  <div className="sidebarblock">
+                    <h3>Categories</h3>
+                    <div className="divline" />
+                    <div className="blocktxt">
+                      <ul className="cats">
+                        <li>
+                          <a href="/foot">
+                            Foot
+                            <span className="badge pull-right">20</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            Tennis
+                            <span className="badge pull-right">10</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            Rugby
+                            <span className="badge pull-right">3</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#">
+                            Judo
+                            <span className="badge pull-right">16</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="form-group">
-              <h3 className="control-label">Description</h3>
-              <textarea name="content" className="form-control" id="exampleTextarea" rows="3" onChange={this.onChange} />
-            </div>
-            <button type="submit" className="btn btn-primary">{isArticleUpdate ? 'Mettre à jour le partager' : 'Partager'}</button>
-          </form>
+          </div>
         </div>
-        <div className="col-sm-12">
-          {this.showArticleTraining()}
-        </div>
-      </div>
+      </section>
     )
   }
 }

@@ -401,19 +401,6 @@ table.poll {
     display:none;
 }
 
-.poll input[type="radio"] + label {
-    display:inline-block;
-    width:31px;
-    height:31px;
-    background: url(./images/radio.jpg) 0 0 no-repeat;
-    vertical-align:middle;
-    cursor:pointer;
-}
-
-.poll input[type="radio"]:checked + label {
-    background: url(./images/radio.jpg) -31px 0 no-repeat;
-}
-
 td.chbox {
     vertical-align: top;
 }

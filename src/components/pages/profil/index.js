@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUserProfil, postToUpdateProfil } from './actions/index'
+import './index.css'
 
 class Profil extends Component {
   constructor(props) {
@@ -74,27 +75,34 @@ class Profil extends Component {
     } = this.state
 
     return (
-      <div className="col-md-6 col-md-offset-3">
-        <div className="form-area">
-          <form>
-            <br />
-            <div className="form-group">
-              <p>Username</p>
-              <input value={username} type="text" onChange={this.handleUsernameChange} className="form-control" placeholder="Name" required />
+      <section className="contentProfil">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 col-md-offset-3">
+              <div className="form-area">
+                <form>
+                  <br />
+                  <div className="form-group">
+                    <p>Username</p>
+                    <input value={username} type="text" onChange={this.handleUsernameChange} className="form-control" placeholder="Name" required />
+                  </div>
+                  <div className="form-group">
+                    <p>email</p>
+                    <input value={email} type="email" onChange={this.handleEmailChange} className="form-control" placeholder="email" required />
+                  </div>
+                  <div className="form-group">
+                    <p>password</p>
+                    <input value={passwordDigest} onChange={this.handlePasswordChange} type="password" className="form-control" placeholder="Password" required />
+                  </div>
+                  <button type="button" onClick={this.updateProfile} id="submit" name="submit" className="btn btn-primary pull-right">Update</button>
+                  <br />
+                </form>
+                { updateProfil }
+              </div>
             </div>
-            <div className="form-group">
-              <p>email</p>
-              <input value={email} type="email" onChange={this.handleEmailChange} className="form-control" placeholder="email" required />
-            </div>
-            <div className="form-group">
-              <p>password</p>
-              <input value={passwordDigest} onChange={this.handlePasswordChange} type="password" className="form-control" placeholder="Password" required />
-            </div>
-            <button type="button" onClick={this.updateProfile} id="submit" name="submit" className="btn btn-primary pull-right">Update</button>
-          </form>
-          { updateProfil }
+          </div>
         </div>
-      </div>
+      </section>
     )
   }
 }

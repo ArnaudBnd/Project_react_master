@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { logout } from './actions'
+import './index.css'
 
 class NavBar extends Component {
   logout(e) {
@@ -12,67 +13,88 @@ class NavBar extends Component {
     const { auth } = this.props
 
     const guestLinks = (
-      <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul className="navbar-nav ml-auto">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="/signup">
-                Sign up
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/login">
-                Login
-              </a>
-            </li>
-          </ul>
-        </ul>
-      </div>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <a className="navbar-brand" href="#">S.Y.T</a>
+          </div>
+
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul className="nav navbar-nav">
+              <li>
+                <a href="/signup">
+                  Sign up
+                  <span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li>
+                <a href="/login">
+                  login
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     )
 
     const userLinks = (
-      <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul className="navbar-nav ml-auto">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <a className="nav-link" href="/accueilUser">
-                Accueil
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Catégories
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a className="dropdown-item" href="/foot">Foot</a>
-              </div>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                About me
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a className="dropdown-item" href="/profil">Editer mon profil</a>
-                <a className="dropdown-item" href="/mesMessages">Mes messages</a>
-              </div>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/logout" onClick={this.logout.bind(this)}>
-                Logout
-              </a>
-            </li>
-          </ul>
-        </ul>
-      </div>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+              <span className="icon-bar" />
+            </button>
+            <a className="navbar-brand" href="#">S.Y.T</a>
+          </div>
+
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul className="nav navbar-nav">
+              <li>
+                <a href="/accueilUser">
+                  Accueil
+                  <span className="sr-only">(current)</span>
+                </a>
+              </li>
+              <li><a href="/profil">Profil</a></li>
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Categories
+                  <span className="caret" />
+                </a>
+                <ul className="dropdown-menu">
+                  <li><a href="/foot">Foot</a></li>
+                  <li><a href="#">Tennis</a></li>
+                  <li><a href="#">Rugby</a></li>
+                  <li><a href="#">Judo</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  Moi
+                  <span className="caret" />
+                </a>
+                <ul className="dropdown-menu">
+                  <li><a href="/profil">Editer mon profil</a></li>
+                  <li><a href="/mesMessages">Mes messages</a></li>
+                </ul>
+              </li>
+              <li><a href="/logout" onClick={this.logout.bind(this)}>Deconnexion</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     )
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <a className="navbar-brand" href="#">S.Y.T</a>
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          { auth.isAuthentificated ? userLinks : guestLinks }
-        </div>
-      </nav>
+      <div>
+        { auth.isAuthentificated ? userLinks : guestLinks }
+      </div>
     )
   }
 }
