@@ -54,7 +54,7 @@ class ListPost extends Component {
 
     return (
       <div className="container">
-        <h1>Voici la liste de tout les posts</h1>
+        <hr />
         <div className="row">
           <div className="col-lg-8 col-md-8">
             {

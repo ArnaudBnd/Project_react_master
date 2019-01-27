@@ -1,66 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllCommentFromUser } from './actions/index'
+import { deleteComById } from './actions/index'
 
 class MesCommentaires extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      allComments: []
+      allComs: []
     }
 
-    this.getComFromUser = this.getComFromUser.bind(this)
-    this.commentsFromUser = this.commentsFromUser.bind(this)
-    this.displayAllCommentsFromUser = this.displayAllCommentsFromUser.bind(this)
+    this.displayAllComsFromUser = this.displayAllComsFromUser.bind(this)
   }
 
-  componentDidMount() {
-    this.getComFromUser()
-  }
-
-  /**
-   * getComFromUser
-   * Action getAllCommentFromUser triggered
-   * pour recupérer tout les comments du user connecté
-   */
-  getComFromUser() {
-    const { auth } = this.props
-
-    getAllCommentFromUser(auth.auth.username).then((response) => {
-      this.setState({
-        allComments: response
-      })
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      allComs: nextProps.allComs
     })
   }
 
-  /**
-   * commentsFromUser
-   * parcourir les comments pour display
-   * @return
-   */
-  commentsFromUser() {
-    const { allComments } = this.state
-
-    return (
-      allComments
-        .map((item, idMap) => this.displayAllCommentsFromUser(
-          idMap,
-          item.comment,
-          item.date,
-          item.id,
-          item.idPost,
-          item.idCategorie
-        ))
-    )
-  }
-
-  /**
-   * displayAllCommentsFromUser
-   * Display chaques comments
-   * @params idMap, comment, date, id, idPost, categorie
-   */
-  displayAllCommentsFromUser(idMap, comment, date, id, idPost, categorie) {
+  displayAllComsFromUser(idMap, comment, date, id, categorie) {
     const AMJ = date.substring(0, 10)
     const H = date.substring(11, 19)
 
@@ -81,20 +40,50 @@ class MesCommentaires extends Component {
           {' '}
           {comment}
         </h4>
-        <button type="submit">
+        <button type="submit" onClick={e => this.handleDeletePost(e, id)}>
           Supprimer
         </button>
       </div>
     )
   }
 
-  render() {
-    const { allComments } = this.state
-    console.log(allComments)
+  /**
+   * postsFromUser
+   * parcourir les posts pour display
+   * @return
+   */
+  comsFromUser() {
+    const { allComs } = this.state
 
     return (
+      allComs
+        .map((item, idMap) => this.displayAllComsFromUser(
+          idMap,
+          item.comment,
+          item.date,
+          item.id,
+          item.idCategorie
+        ))
+    )
+  }
+
+  handleDeletePost(e, id) {
+    e.preventDefault()
+    const { allComs } = this.state
+
+    deleteComById(id).then(() => {
+      const tmp = allComs.filter(com => com.id !== id)
+
+      this.setState({
+        allComs: tmp
+      })
+    })
+  }
+
+  render() {
+    return (
       <div>
-        {this.commentsFromUser()}
+        {this.comsFromUser()}
       </div>
     )
   }

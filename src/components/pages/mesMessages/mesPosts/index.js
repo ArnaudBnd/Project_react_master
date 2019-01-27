@@ -1,33 +1,44 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllPostFromUser } from './actions/index'
+import { deletePostComById, getAllPostsFromUser, getAllCommentsFromUser } from './actions/index'
+import MesCommentaires from '../mesCommentaires'
 
 class MesPosts extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      allPosts: []
+      allPosts: [],
+      allComs: []
     }
 
-    this.displayAllPostsFroUser = this.displayAllPostsFroUser.bind(this)
-    this.getPostFromUser = this.getPostFromUser.bind(this)
+    this.displayAllPostsFromUser = this.displayAllPostsFromUser.bind(this)
+    this.deleteComDeleted = this.deleteComDeleted.bind(this)
+    this.getComs = this.getComs.bind(this)
+    this.getPosts = this.getPosts.bind(this)
+    this.handleDeletePost = this.handleDeletePost.bind(this)
     this.postsFromUser = this.postsFromUser.bind(this)
   }
 
-  componentDidMount() {
-    this.getPostFromUser()
+  componentWillMount() {
+    this.getComs()
+    this.getPosts()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const id = nextProps.mesComments.deleteComment
+    this.deleteComDeleted(id)
   }
 
   /**
    * getPostFromUser
-   * Action getAllPostFromUser triggered
+   * Action getAllPostsFromUser triggered
    * pour recupérer tout les posts du user connecté
    */
-  getPostFromUser() {
+  getPosts() {
     const { auth } = this.props
 
-    getAllPostFromUser(auth.auth.id).then((res) => {
+    getAllPostsFromUser(auth.auth.id).then((res) => {
       this.setState({
         allPosts: res
       })
@@ -35,17 +46,53 @@ class MesPosts extends Component {
   }
 
   /**
+   * getComFromUser
+   * Action getAllCommentsFromUser triggered
+   * pour recupérer tout les coms du user connecté
+   */
+  getComs() {
+    const { auth } = this.props
+
+    getAllCommentsFromUser(auth.auth.username).then((res) => {
+      this.setState({
+        allComs: res
+      })
+    })
+  }
+
+  deleteComDeleted(id) {
+    const { allComs } = this.state
+
+    if (id) {
+      const tmp = allComs.filter(com => id !== com.id)
+
+      this.setState({
+        allComs: tmp
+      })
+    }
+  }
+
+  /**
    * displayAllPostsFroUser
    * Display chaques posts
    * @params idMap, content, title, id, categorie
    */
-  displayAllPostsFroUser(idMap, content, date, title, id, categorie) {
+  displayAllPostsFromUser(idMap, content, date, title, id, categorie) {
     const AMJ = date.substring(0, 10)
     const H = date.substring(11, 19)
 
     return (
       <div key={idMap}>
         <hr />
+        <h3>
+          Title:
+          {title}
+        </h3>
+        <h4>
+          Post:
+          {' '}
+          {content}
+        </h4>
         <h5>
           Date:
           {' '}
@@ -55,16 +102,32 @@ class MesPosts extends Component {
         Catérogie:
         {' '}
         {categorie === '2' ? ' Foot' : ' Tennis'}
-        <h4>
-          Commentaire:
-          {' '}
-          {content}
-        </h4>
-        <button type="submit">
+        <br />
+        <button type="submit" onClick={e => this.handleDeletePost(e, id)}>
           Supprimer
         </button>
       </div>
     )
+  }
+
+  /**
+   * handleDeletePost
+   * delete Post
+   * @params e, idPost
+   */
+  handleDeletePost(e, idPost) {
+    e.preventDefault()
+    const { allPosts, allComs } = this.state
+
+    deletePostComById(idPost).then(() => {
+      const tmpPost = allPosts.filter(post => post.id !== idPost)
+      const tmpCom = allComs.filter(com => com.idPost !== idPost)
+
+      this.setState({
+        allPosts: tmpPost,
+        allComs: tmpCom
+      })
+    })
   }
 
   /**
@@ -77,7 +140,7 @@ class MesPosts extends Component {
 
     return (
       allPosts
-        .map((item, idMap) => this.displayAllPostsFroUser(
+        .map((item, idMap) => this.displayAllPostsFromUser(
           idMap,
           item.content,
           item.created_at,
@@ -89,9 +152,22 @@ class MesPosts extends Component {
   }
 
   render() {
+    const { allComs } = this.state
+
     return (
       <div>
-        {this.postsFromUser()}
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 col-md-8">
+              <h1>Mes Commentaires: </h1>
+              <MesCommentaires allComs={allComs} />
+            </div>
+            <div className="col-lg-8 col-md-4">
+              <h1>Mes Posts: </h1>
+              {this.postsFromUser()}
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -105,7 +181,8 @@ class MesPosts extends Component {
  */
 function mapStateToProps(state) {
   return {
-    auth: state.auth
+    auth: state.auth,
+    mesComments: state.mesComments
   }
 }
 

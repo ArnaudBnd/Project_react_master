@@ -279,8 +279,16 @@ class DisplayPostFromAccueil extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
-              <a href="/accueilUser">Discussion général</a>
+              <a href="/accueilUser">
+                <i className="fa fa-home" />
+                {' '}
+                <span className="diviver">&gt;</span>
+                {' '}
+                Discussion général
+                {' '}
+              </a>
               <span className="diviver">&gt;</span>
+              {' '}
               <a href="#">Détail message</a>
             </div>
             <hr />

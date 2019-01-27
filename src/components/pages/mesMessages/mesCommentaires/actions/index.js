@@ -11,25 +11,24 @@ import store from '../../../../../store'
 import { apiPath } from '../../../../../utils/urlAPI'
 
 /**
-  * Disptach comment register
+  * Disptach comment deleted
   * @param {Object} comment
   */
-const getComment = comments => ({
-  type: 'GET_ALL_COMM_FROM_USER',
-  comments
+const deleteCom = deleteComment => ({
+  type: 'DELETE_COM_BY_ID',
+  deleteComment
 })
 
 /**
-  * Action de récupérer chaques com d'user connecté
-  * @param {Object} username
+  * Action de supprimer un com avec son id
+  * @param {Object} idCom
   * @return {Object} Promise response
   */
-export function getAllCommentFromUser(username) {
+export function deleteComById(idCom) {
   return new Promise((resolve) => {
-    axios.get(`${apiPath}/api/comments/${username}`)
-      .then((response) => {
-        resolve(response.data.comment)
-        store.dispatch(getComment(response.data.comment))
-      })
+    axios.delete(`${apiPath}/api/comments/${idCom}`).then((res) => {
+      resolve(res.status)
+      store.dispatch(deleteCom(idCom))
+    })
   })
 }

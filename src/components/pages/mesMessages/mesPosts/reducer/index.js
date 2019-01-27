@@ -11,7 +11,9 @@
  *
  */
 const postsState = {
-  posts: null
+  getPosts: null,
+  getComments: null,
+  deletePC: null
 }
 
 /**
@@ -23,7 +25,15 @@ const MesPosts = (state = postsState, action) => {
   switch (action.type) {
     case 'GET_ALL_POST_FROM_USER':
       return {
-        ...state, posts: action.posts
+        ...state, getPosts: action.getPosts
+      }
+    case 'GET_ALL_COMM_FROM_USER':
+      return {
+        ...state, getComments: action.getComments
+      }
+    case 'DELETE_POST_COM_BY_ID':
+      return {
+        ...state, deletePC: action.deletePC
       }
     default:
       return state

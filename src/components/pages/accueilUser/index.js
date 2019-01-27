@@ -7,10 +7,18 @@ class AccueilUser extends Component {
     return (
       <div>
         <section className="content">
+          <hr />
           <div className="container">
             <div className="row">
               <div className="col-lg-8">
-                <a href="#">Discussion général</a>
+                <a href="#">
+                  <i className="fa fa-home" />
+                  {' '}
+                  <span className="diviver">&gt;</span>
+                  {' '}
+                  Discussion général
+                  {' '}
+                </a>
                 <span className="diviver">&gt;</span>
               </div>
             </div>

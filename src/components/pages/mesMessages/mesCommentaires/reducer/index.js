@@ -11,7 +11,7 @@
  *
  */
 const commentsState = {
-  comments: null
+  deleteComment: null
 }
 
 /**
@@ -21,9 +21,9 @@ const commentsState = {
   */
 const MesComments = (state = commentsState, action) => {
   switch (action.type) {
-    case 'GET_ALL_COMM_FROM_USER':
+    case 'DELETE_COM_BY_ID':
       return {
-        ...state, comments: action.comments
+        ...state, deleteComment: action.deleteComment
       }
     default:
       return state
