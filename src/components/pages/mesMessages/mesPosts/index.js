@@ -155,17 +155,15 @@ class MesPosts extends Component {
     const { allComs } = this.state
 
     return (
-      <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8 col-md-8">
-              <h1>Mes Commentaires: </h1>
-              <MesCommentaires allComs={allComs} />
-            </div>
-            <div className="col-lg-8 col-md-4">
-              <h1>Mes Posts: </h1>
-              {this.postsFromUser()}
-            </div>
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-8 col-md-8">
+            <h1>Mes Commentaires: </h1>
+            <MesCommentaires allComs={allComs} />
+          </div>
+          <div className="col-lg-4 col-md-4">
+            <h1>Mes Posts: </h1>
+            {this.postsFromUser()}
           </div>
         </div>
       </div>

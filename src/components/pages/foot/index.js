@@ -38,6 +38,7 @@ class Foot extends Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onSubmitComment = this.onSubmitComment.bind(this)
     this.onSubmitDisplayCom = this.onSubmitDisplayCom.bind(this)
+    this.onSubmitDisplayFormPost = this.onSubmitDisplayFormPost.bind(this)
     this.articleTraining = this.articleTraining.bind(this)
     this.handleCommentChange = this.handleCommentChange.bind(this)
     this.handleDeleteArticle = this.handleDeleteArticle.bind(this)
@@ -167,6 +168,17 @@ class Foot extends Component {
     e.preventDefault()
 
     const button = document.getElementById(`${idPost}`)
+    if (button.style.display === 'none') {
+      button.style.display = 'block'
+    } else {
+      button.style.display = 'none'
+    }
+  }
+
+  onSubmitDisplayFormPost(e) {
+    e.preventDefault()
+
+    const button = document.getElementById('formFoot')
     if (button.style.display === 'none') {
       button.style.display = 'block'
     } else {
@@ -582,7 +594,7 @@ class Foot extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-8 col-md-8">
-              <form id="formFoot" onSubmit={this.onSubmit}>
+              <form id="formFoot" style={{ display: 'none' }} onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <h3 className="control-label">Foot</h3>
                 </div>
@@ -596,6 +608,9 @@ class Foot extends Component {
                 </div>
                 <button type="submit" className="btn btn-primary">{isArticleUpdate ? 'Mettre à jour le partager' : 'Partager'}</button>
               </form>
+              <hr />
+              <button type="submit" onClick={e => this.onSubmitDisplayFormPost(e)} className="btn btn-primary">Start New Topic</button>
+              <hr />
             </div>
             <div className="container">
               <div className="row">
@@ -637,6 +652,35 @@ class Foot extends Component {
                   </div>
                 </div>
               </div>
+              <div className="pull-left">
+                <a href="#" className="prevnext">
+                  <i className="fa fa-angle-left" />
+                </a>
+              </div>
+              <div className="pull-left">
+                <ul className="paginationforum">
+                  <li className="hidden-xs"><a href="#">1</a></li>
+                  <li className="hidden-xs"><a href="#">2</a></li>
+                  <li className="hidden-xs"><a href="#">3</a></li>
+                  <li className="hidden-xs"><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">6</a></li>
+                  <li><a href="#" className="active">7</a></li>
+                  <li><a href="#">8</a></li>
+                  <li className="hidden-xs"><a href="#">9</a></li>
+                  <li className="hidden-xs"><a href="#">10</a></li>
+                  <li className="hidden-xs hidden-md"><a href="#">11</a></li>
+                  <li className="hidden-xs hidden-md"><a href="#">12</a></li>
+                  <li className="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
+                  <li><a href="#">1586</a></li>
+                </ul>
+              </div>
+              <div className="pull-left">
+                <a href="#" className="prevnext last">
+                  <i className="fa fa-angle-right" />
+                </a>
+              </div>
+              <div className="clearfix" />
             </div>
           </div>
         </div>
