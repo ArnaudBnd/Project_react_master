@@ -164,6 +164,10 @@ class Foot extends Component {
     }
   }
 
+  /**
+   * Au clique pour afficher les coms
+   * @param e, idPost
+   */
   onSubmitDisplayCom(e, idPost) {
     e.preventDefault()
 
@@ -175,6 +179,10 @@ class Foot extends Component {
     }
   }
 
+  /**
+   * Au clique pour afficher les posts
+   * @param e
+   */
   onSubmitDisplayFormPost(e) {
     e.preventDefault()
 
@@ -292,6 +300,7 @@ class Foot extends Component {
   handleDeleteArticle(e, idPost) {
     e.preventDefault()
     const { postToDisplay, commentToDisplay } = this.state
+
     deletePostTrainingFromUser(idPost).then(() => {
       const tmp = postToDisplay.filter(post => post.id !== idPost)
       const tmp1 = commentToDisplay.filter(post => post.idPost !== idPost)

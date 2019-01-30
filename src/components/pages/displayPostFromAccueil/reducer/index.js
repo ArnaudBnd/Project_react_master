@@ -13,7 +13,9 @@
 const displayPost = {
   getPostToDisplay: null,
   getComToDisplay: null,
-  postComToDisplay: null
+  postComToDisplay: null,
+  deleteCom: null,
+  deleteP: null
 }
 
 /**
@@ -34,6 +36,14 @@ const Foot = (state = displayPost, action) => {
     case 'POST_COM':
       return {
         ...state, postComToDisplay: action.postComToDisplay
+      }
+    case 'DELETE_COM':
+      return {
+        ...state, deleteCom: action.deleteCom
+      }
+    case 'DELETE_POST':
+      return {
+        ...state, deleteP: action.deleteP
       }
     default:
       return state

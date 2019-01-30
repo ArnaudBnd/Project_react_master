@@ -87,3 +87,51 @@ export function postUserComment(comment) {
       })
   })
 }
+
+/**
+  * Dispatch deleteCommTraining
+  * @param {Object} deleteCom
+  */
+const deleteComm = deleteCom => ({
+  type: 'DELETE_COM',
+  deleteCom
+})
+
+/**
+* Permet de supprimer un commentaire
+* En base
+* @param {Object} idComment
+* @return {Object} Promise response
+*/
+export function deleteComment(idComment) {
+  return new Promise((resolve) => {
+    axios.delete(`${apiPath}/api/comments/${idComment}`).then((res) => {
+      store.dispatch(deleteComm(res.status))
+      resolve(res.status)
+    })
+  })
+}
+
+/**
+  * Dispatch deletePostTraining
+  * @param {Object} deletePost
+  */
+const deleteArticle = deleteP => ({
+  type: 'DELETE_POST',
+  deleteP
+})
+
+/**
+* Permet de supprimer un post
+* En base
+* @param {Object} idPost
+* @return {Object} Promise response
+*/
+export function deletePost(idPost) {
+  return new Promise((resolve) => {
+    axios.delete(`${apiPath}/api/posts/${idPost}`).then((res) => {
+      store.dispatch(deleteArticle(res))
+      resolve(res)
+    })
+  })
+}

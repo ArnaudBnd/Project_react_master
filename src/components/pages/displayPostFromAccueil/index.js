@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import {
   getPostWithId,
   getComWithIdPost,
-  postUserComment
+  postUserComment,
+  deleteComment,
+  deletePost
 } from './actions/index'
 import './index.css'
 
@@ -21,10 +23,14 @@ class DisplayPostFromAccueil extends Component {
 
     this.getPost = this.getPost.bind(this)
     this.getCom = this.getCom.bind(this)
+    this.handleDeleteCommentArticle = this.handleDeleteCommentArticle.bind(this)
+    this.handleDeletePostArticle = this.handleDeletePostArticle.bind(this)
     this.onSubmitComment = this.onSubmitComment.bind(this)
     this.handleCommentChange = this.handleCommentChange.bind(this)
     this.resetInput = this.resetInput.bind(this)
     this.showPost = this.showPost.bind(this)
+    this.showButtonDeleteComment = this.showButtonDeleteComment.bind(this)
+    this.showButtonDeletePost = this.showButtonDeletePost.bind(this)
     this.showCom = this.showCom.bind(this)
     this.displayPost = this.displayPost.bind(this)
     this.displayComment = this.displayComment.bind(this)
@@ -35,6 +41,11 @@ class DisplayPostFromAccueil extends Component {
     this.getCom()
   }
 
+  /**
+   * When submit button comment
+   * post and display a comment
+   * @param e
+   */
   onSubmitComment(e) {
     e.preventDefault()
 
@@ -59,6 +70,10 @@ class DisplayPostFromAccueil extends Component {
     this.resetInput()
   }
 
+  /**
+   * Get com to display with id
+   * Action getComWithIdPost triggered
+   */
   getCom() {
     const { match } = this.props
 
@@ -69,6 +84,10 @@ class DisplayPostFromAccueil extends Component {
     })
   }
 
+  /**
+   * Get post to display with id
+   * Action getPostWithId triggered
+   */
   getPost() {
     const { match } = this.props
 
@@ -87,7 +106,46 @@ class DisplayPostFromAccueil extends Component {
     })
   }
 
-  displayPost(idMap, username, content, title, createdAt) {
+  /**
+   * When we click to delete COM
+   * Action deleteComment triggered
+   * @param e, idCom
+   */
+  handleDeleteCommentArticle(e, idCom) {
+    e.preventDefault()
+
+    deleteComment(idCom).then(() => {
+      const { comToDisplay } = this.state
+      const tmp = comToDisplay.filter(com => com.id !== idCom)
+
+      this.setState({
+        comToDisplay: tmp
+      })
+    })
+  }
+
+  /**
+   * When we click to delete COM
+   * Action deletePost triggered
+   * @param e, idPost
+   */
+  handleDeletePostArticle(e, idPost) {
+    e.preventDefault()
+    const { history } = this.props
+
+    deletePost(idPost).then(() => {
+      alert('le post a été supprimé')
+      history.push('/accueilUser')
+    })
+  }
+
+  /**
+   * Post to display
+   * Lors du rendu
+   * @param idMap, title, content, idPost, username, createdAt
+   * @return dom HTML
+   */
+  displayPost(idMap, username, content, title, createdAt, idPost) {
     return (
       <div className="col-lg-12 col-md-8">
         <div key={idMap} className="post beforepagination">
@@ -157,6 +215,7 @@ class DisplayPostFromAccueil extends Component {
                 <i className="fa fa-flag" />
               </a>
             </div>
+            {this.showButtonDeletePost(username, idPost)}
             <div className="clearfix" />
             <hr />
           </div>
@@ -166,7 +225,13 @@ class DisplayPostFromAccueil extends Component {
     )
   }
 
-  displayComment(idMap, comment, date, username) {
+  /**
+   * Com to display
+   * Lors du rendu
+   * @param idMap, title, comment, date, username, idCom
+   * @return dom HTML
+   */
+  displayComment(idMap, comment, date, username, idCom) {
     return (
       <blockquote>
         <div key={idMap} className="post beforepagination">
@@ -234,14 +299,64 @@ class DisplayPostFromAccueil extends Component {
               </a>
             </div>
             <div className="clearfix" />
+            {this.showButtonDeleteComment(username, idCom)}
           </div>
         </div>
       </blockquote>
     )
   }
 
+  /**
+   * resetInput
+   */
   resetInput() {
     document.getElementById('formCom').reset()
+  }
+
+  /**
+   * Display buttom delete Com
+   * Lors du rendu
+   * @param user, idCom
+   * @return dom HTML / null
+   */
+  showButtonDeleteComment(user, idCom) {
+    const { auth } = this.props
+    const authUsername = auth.auth.username
+
+    if (user === authUsername) {
+      return (
+        <div>
+          <button type="submit" onClick={e => this.handleDeleteCommentArticle(e, idCom)} className="btn btn-danger">
+            Delete
+          </button>
+        </div>
+      )
+    }
+
+    return null
+  }
+
+  /**
+   * Display buttom delete Post
+   * Lors du rendu
+   * @param user, idPost
+   * @return dom HTML / null
+   */
+  showButtonDeletePost(user, idPost) {
+    const { auth } = this.props
+    const authUsername = auth.auth.username
+
+    if (user === authUsername) {
+      return (
+        <div>
+          <button type="submit" onClick={e => this.handleDeletePostArticle(e, idPost)} className="btn btn-danger">
+            Delete
+          </button>
+        </div>
+      )
+    }
+
+    return null
   }
 
   showCom() {
@@ -253,7 +368,8 @@ class DisplayPostFromAccueil extends Component {
           idMap,
           item.comment,
           item.date,
-          item.user
+          item.user,
+          item.id
         ))
     )
   }
@@ -268,7 +384,8 @@ class DisplayPostFromAccueil extends Component {
           item.username,
           item.content,
           item.title,
-          item.created_at
+          item.created_at,
+          item.id
         ))
     )
   }
