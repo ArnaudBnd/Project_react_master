@@ -81,6 +81,7 @@ class Profil extends Component {
             <div className="col-md-6 col-md-offset-3">
               <div className="form-area">
                 <form>
+                  <h1>Edite ton profil</h1>
                   <br />
                   <div className="form-group">
                     <p>Username</p>

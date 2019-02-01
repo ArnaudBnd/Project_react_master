@@ -198,7 +198,7 @@ class DisplayPostFromAccueil extends Component {
               <i className="fa fa-clock-o" />
               Posted on :
               {' '}
-              {createdAt}
+              {new Date(createdAt).toLocaleDateString()}
               <br />
               <i className="fa fa-eye" />
               {' '}
@@ -281,7 +281,7 @@ class DisplayPostFromAccueil extends Component {
               <i className="fa fa-clock-o" />
               Posted on :
               {' '}
-              {date}
+              {new Date(date).toLocaleDateString()}
               <br />
               <i className="fa fa-eye" />
               {' '}
@@ -434,6 +434,7 @@ class DisplayPostFromAccueil extends Component {
                         </div>
                       </div>
                       <div className="posttext pull-left">
+                        <h3>Répondre:</h3>
                         <div className="textwraper">
                           <div className="postreply">Post a Reply</div>
                           <textarea name="reply" id="reply" onChange={this.handleCommentChange} placeholder="Type your message here" />

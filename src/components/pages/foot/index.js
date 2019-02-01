@@ -160,6 +160,7 @@ class Foot extends Component {
           isCommentUpdate: false
         })
       })
+
       this.resetFormComment(idPost)
     }
   }
@@ -240,9 +241,15 @@ class Foot extends Component {
             {' '}
             Responses
             <br />
-            {this.showButtonDelete(user, idPost)}
-            {this.showButtonUpdate(user, idPost)}
-            <button type="submit" onClick={e => this.onSubmitDisplayCom(e, idPost)} className="btn btn-primary ">Show more</button>
+            <div className="col-lg-4">
+              {this.showButtonDelete(user, idPost)}
+            </div>
+            <div className="col-lg-4">
+              <button type="submit" onClick={e => this.onSubmitDisplayCom(e, idPost)} className="btn btn-primary ">Show more</button>
+            </div>
+            <div className="col-lg-4">
+              {this.showButtonUpdate(user, idPost)}
+            </div>
           </div>
           <div id={idPost} style={{ display: 'none', paddingLeft: '85px' }}>
             <hr />
@@ -347,6 +354,9 @@ class Foot extends Component {
       content: postToUpdate.content
     })
 
+    const button = document.getElementById('formFoot')
+    button.style.display = 'block'
+
     // On set les values voulus dans le formulaire
     document.querySelector('input[name="title"]').value = postToUpdate.title
     document.querySelector('textarea[name="content"]').value = postToUpdate.content
@@ -392,6 +402,11 @@ class Foot extends Component {
    */
   resetForm() {
     document.getElementById('formFoot').reset()
+
+    const button = document.getElementById('formFoot')
+    if (button.style.display === 'block') {
+      button.style.display = 'none'
+    }
   }
 
   /**
@@ -461,7 +476,7 @@ class Foot extends Component {
     if (user === authUsername) {
       return (
         <div>
-          <button type="submit" onClick={e => this.handleDeleteArticle(e, idPost)} className="btn btn-danger">
+          <button type="submit" style={{ backgroundColor: 'red' }} onClick={e => this.handleDeleteArticle(e, idPost)} className="btn btn-primary">
             Delete
           </button>
         </div>
@@ -484,7 +499,7 @@ class Foot extends Component {
     if (user === authUsername) {
       return (
         <div>
-          <button type="submit" onClick={e => this.handleUpdateArticle(e, idPost)} className="btn btn-danger">
+          <button type="submit" onClick={e => this.handleUpdateArticle(e, idPost)} className="btn btn-primary">
             Update
           </button>
         </div>
@@ -556,27 +571,39 @@ class Foot extends Component {
       tmp
         .map((element, idx) => (
           <div key={idx}>
-            <div id="imgComment" className="col-sm-1 text-center">
-              <img src="https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg" className="img-circle" height="65" width="65" alt="Avatar" />
-            </div>
-            <div className="row">
-              <div id="comment" className="col-sm-10">
-                <h4>
-                  {element.user}
-                  {' '}
-                  <small>
-                    {element.date}
-                  </small>
-                </h4>
-                <p>
-                  {element.comment}
-                  .
-                </p>
-                {this.showButtonDeleteComment(element.user, element.id)}
-                {this.showButtonUpdateComment(element.user, element.id, idPost)}
-                <br />
+            <blockquote>
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-1">
+                    <div id="imgComment">
+                      <img src="https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg" className="img-circle" height="65" width="65" alt="Avatar" />
+                    </div>
+                  </div>
+                  <div className="col-lg-3">
+                    <div id="comment">
+                      <h2>
+                        {element.user}
+                        {' '}
+                      </h2>
+                      <h4>
+                        {element.comment}
+                        .
+                      </h4>
+                      <small>
+                        {new Date(element.date).toLocaleDateString()}
+                      </small>
+                      <div className="col-lg-4">
+                        {this.showButtonDeleteComment(element.user, element.id)}
+                      </div>
+                      <div className="col-lg-4">
+                        {this.showButtonUpdateComment(element.user, element.id, idPost)}
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </blockquote>
           </div>
         ))
     )
@@ -628,7 +655,7 @@ class Foot extends Component {
                 </div>
                 <div className="col-lg-4 col-md-4">
                   <div className="sidebarblock">
-                    <h3>Categories</h3>
+                    <h3>Le + populaire</h3>
                     <div className="divline" />
                     <div className="blocktxt">
                       <ul className="cats">
@@ -641,19 +668,19 @@ class Foot extends Component {
                         <li>
                           <a href="#">
                             Tennis
-                            <span className="badge pull-right">10</span>
+                            <span className="badge pull-right">16</span>
                           </a>
                         </li>
                         <li>
                           <a href="#">
                             Rugby
-                            <span className="badge pull-right">3</span>
+                            <span className="badge pull-right">13</span>
                           </a>
                         </li>
                         <li>
                           <a href="#">
                             Judo
-                            <span className="badge pull-right">16</span>
+                            <span className="badge pull-right">1</span>
                           </a>
                         </li>
                       </ul>

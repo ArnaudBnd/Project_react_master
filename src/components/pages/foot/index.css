@@ -614,6 +614,7 @@ a.down:hover {
 .post blockquote {
     border: solid 1px #f1f1f1;
     border-radius: 2px;
+    background-color: #ecf0f1;
     font-size: 14px;
     padding: 18px;
 }

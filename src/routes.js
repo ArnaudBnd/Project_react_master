@@ -9,6 +9,7 @@ import Profil from './components/pages/profil/index.js'
 import SignUp from './components/signup/signup'
 import ForgotPassword from './components/pages/forgotPassword/index.js'
 import MesMessages from './components/pages/mesMessages/index.js'
+import NousContacter from './components/pages/nousContacter/index.js'
 import ResetPassword from './components/pages/resetPassword/index.js'
 import DisplayPostFromAccueil from './components/pages/displayPostFromAccueil/index.js'
 import Accueil from './components/pages/accueil'
@@ -29,6 +30,7 @@ const Router = () => (
         <Route path="/profil" component={requireAuth(Profil)} />
         <Route path="/mesMessages" component={requireAuth(MesMessages)} />
         <Route path="/accueilUser" component={requireAuth(AccueilUser)} />
+        <Route path="/nousContacter" component={requireAuth(NousContacter)} />
         <Route path="/displayPostFromAccueil/:idPost" component={requireAuth(DisplayPostFromAccueil)} />
         <Route path="/reset/:token" component={ResetPassword} />
       </Switch>

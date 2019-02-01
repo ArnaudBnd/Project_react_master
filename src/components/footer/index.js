@@ -6,7 +6,7 @@ class Footer extends Component {
     return (
       <div>
         <footer id="myFooter">
-          <div className="container">
+          <div className="contenaire">
             <div className="row">
               <div className="col-sm-3">
                 <h2 className="logo"><a href="#"> S.Y.T </a></h2>

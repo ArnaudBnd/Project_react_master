@@ -59,7 +59,6 @@ class NavBar extends Component {
                   <span className="sr-only">(current)</span>
                 </a>
               </li>
-              <li><a href="/profil">Profil</a></li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   Categories
@@ -67,9 +66,9 @@ class NavBar extends Component {
                 </a>
                 <ul className="dropdown-menu">
                   <li><a href="/foot">Foot</a></li>
-                  <li><a href="#">Tennis</a></li>
-                  <li><a href="#">Rugby</a></li>
-                  <li><a href="#">Judo</a></li>
+                  <li><a href="/foot">Tennis</a></li>
+                  <li><a href="/foot">Rugby</a></li>
+                  <li><a href="/foot">Judo</a></li>
                 </ul>
               </li>
             </ul>
@@ -81,7 +80,8 @@ class NavBar extends Component {
                 </a>
                 <ul className="dropdown-menu">
                   <li><a href="/profil">Editer mon profil</a></li>
-                  <li><a href="/mesMessages">Mes messages</a></li>
+                  <li><a href="/mesMessages">Mes publications</a></li>
+                  <li><a href="/nousContacter">Nous contacter</a></li>
                 </ul>
               </li>
               <li><a href="/logout" onClick={this.logout.bind(this)}>Deconnexion</a></li>

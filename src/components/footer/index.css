@@ -4,6 +4,10 @@
     padding-top: 30px;
 }
 
+#contenaire {
+    background-color: black;
+}
+
 #myFooter .footer-copyright {
     background-color: #333333;
     padding-top: 3px;

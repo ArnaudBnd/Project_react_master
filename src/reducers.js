@@ -9,6 +9,7 @@ import mesPosts from './components/pages/mesMessages/mesPosts/reducer'
 import allPosts from './components/pages/accueilUser/filteredListPost/reducer'
 import allComs from './components/pages/accueilUser/listPost/reducer'
 import displayPostFromAccueil from './components/pages/displayPostFromAccueil/reducer'
+import NousContacter from './components/pages/nousContacter/reducer'
 
 export default combineReducers({
   user,
@@ -19,5 +20,6 @@ export default combineReducers({
   mesPosts,
   allPosts,
   allComs,
-  displayPostFromAccueil
+  displayPostFromAccueil,
+  NousContacter
 })
