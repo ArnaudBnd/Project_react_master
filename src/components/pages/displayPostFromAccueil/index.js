@@ -6,7 +6,8 @@ import {
   getComWithIdPost,
   postUserComment,
   deleteComment,
-  deletePost
+  deletePost,
+  dispatchComs
 } from './actions/index'
 import './index.css'
 
@@ -23,6 +24,7 @@ class DisplayPostFromAccueil extends Component {
 
     this.getPost = this.getPost.bind(this)
     this.getCom = this.getCom.bind(this)
+    this.dispatchAllCom = this.dispatchAllCom.bind(this)
     this.handleDeleteCommentArticle = this.handleDeleteCommentArticle.bind(this)
     this.handleDeletePostArticle = this.handleDeletePostArticle.bind(this)
     this.onSubmitComment = this.onSubmitComment.bind(this)
@@ -39,6 +41,10 @@ class DisplayPostFromAccueil extends Component {
   componentWillMount() {
     this.getPost()
     this.getCom()
+  }
+
+  componentDidUpdate() {
+    this.dispatchAllCom()
   }
 
   /**
@@ -307,6 +313,14 @@ class DisplayPostFromAccueil extends Component {
   }
 
   /**
+   * dispatch allComs to store
+   */
+  dispatchAllCom() {
+    const { comToDisplay } = this.state
+    dispatchComs(comToDisplay)
+  }
+
+  /**
    * resetInput
    */
   resetInput() {
@@ -414,7 +428,6 @@ class DisplayPostFromAccueil extends Component {
         <div className="container">
           <div className="row">
             {this.showPost()}
-
             <div className="col-lg-12 col-md-8">
               <blockquote>
                 <div className="post">

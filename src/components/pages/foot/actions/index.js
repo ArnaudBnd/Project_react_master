@@ -25,7 +25,6 @@ const userPost = postFoot => ({
   * @return {Object} Promise response
   */
 export function userPostTraining(post) {
-  console.log(apiPath)
   return new Promise((resolve, reject) => {
     axios.post(`${apiPath}/api/posts`, post)
       .then((response) => {
@@ -209,4 +208,15 @@ export function updateCommentTrainingFromUser(idCommentToUpdate, comment) {
       resolve(res.data.post)
     })
   })
+}
+
+const comsDispatch = dispatchAllComsFoot => ({
+  type: 'DISPATCH_ALL_COMS',
+  dispatchAllComsFoot
+})
+
+export function dispatchComs(coms) {
+  return (
+    store.dispatch(comsDispatch(coms))
+  )
 }

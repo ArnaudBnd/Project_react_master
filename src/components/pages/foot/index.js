@@ -9,7 +9,8 @@ import {
   userPostComment,
   getCommentFoot,
   updateCommentTrainingFromUser,
-  deleteCommentTrainingFromUser
+  deleteCommentTrainingFromUser,
+  dispatchComs
 } from './actions/index'
 
 class Foot extends Component {
@@ -60,6 +61,11 @@ class Foot extends Component {
   componentDidMount() {
     this.reqToDisplayArticle()
     this.reqToDisplayComment()
+  }
+
+  componentDidUpdate() {
+    const { commentToDisplay } = this.state
+    dispatchComs(commentToDisplay)
   }
 
   onChange(e) {
@@ -252,7 +258,6 @@ class Foot extends Component {
             </div>
           </div>
           <div id={idPost} style={{ display: 'none', paddingLeft: '85px' }}>
-            <hr />
             <h4>Ecrire un Commentaire:</h4>
             <form id="formComment" onSubmit={e => this.onSubmitComment(e, idPost)}>
               <div className="form-group">
@@ -623,12 +628,25 @@ class Foot extends Component {
   }
 
   render() {
-    const { isArticleUpdate } = this.state
+    const { isArticleUpdate, postToDisplay } = this.state
 
     return (
       <section className="content">
+        <hr />
         <div className="container">
           <div className="row">
+            <div className="col-lg-8">
+              <a href="#">
+                <i className="fa fa-home" />
+                {' '}
+                <span className="diviver">&gt;</span>
+                {' '}
+                Discussion
+                <b> foot </b>
+                {' '}
+              </a>
+              <span className="diviver">&gt;</span>
+            </div>
             <div className="col-lg-8 col-md-8">
               <form id="formFoot" style={{ display: 'none' }} onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -647,7 +665,13 @@ class Foot extends Component {
               <hr />
               <button type="submit" onClick={e => this.onSubmitDisplayFormPost(e)} className="btn btn-primary">Start New Topic</button>
               <hr />
+              <h4>
+                Nombre total de posts:
+                {' '}
+                {postToDisplay.length}
+              </h4>
             </div>
+
             <div className="container">
               <div className="row">
                 <div className="col-lg-8 col-md-8">

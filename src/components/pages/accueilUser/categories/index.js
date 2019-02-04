@@ -21,19 +21,19 @@ class Categories extends Component {
               <li>
                 <a href="#">
                   Tennis
-                  <span className="badge pull-right">10</span>
+                  <span className="badge pull-right">{allPosts.length}</span>
                 </a>
               </li>
               <li>
                 <a href="#">
                   Rugby
-                  <span className="badge pull-right">3</span>
+                  <span className="badge pull-right">{allPosts.length}</span>
                 </a>
               </li>
               <li>
                 <a href="#">
                   Judo
-                  <span className="badge pull-right">16</span>
+                  <span className="badge pull-right">{allPosts.length}</span>
                 </a>
               </li>
             </ul>

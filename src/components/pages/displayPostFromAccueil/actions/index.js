@@ -135,3 +135,14 @@ export function deletePost(idPost) {
     })
   })
 }
+
+const comsDispatch = dispatchAllComs => ({
+  type: 'DISPATCH_ALL_COMS',
+  dispatchAllComs
+})
+
+export function dispatchComs(coms) {
+  return (
+    store.dispatch(comsDispatch(coms))
+  )
+}

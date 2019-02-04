@@ -18,7 +18,8 @@ const userState = {
   getAllComments: null,
   postComment: null,
   updatePost: null,
-  updateCom: null
+  updateCom: null,
+  dispatchAllComsFoot: null
 }
 
 /**
@@ -59,6 +60,10 @@ const Foot = (state = userState, action) => {
     case 'UPDATE_COM_TRAINING':
       return {
         ...state, updateCom: action.updateCom
+      }
+    case 'DISPATCH_ALL_COMS':
+      return {
+        ...state, dispatchAllComsFoot: action.dispatchAllComsFoot
       }
     default:
       return state

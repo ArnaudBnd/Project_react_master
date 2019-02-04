@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { logout } from './actions'
+import Notification from '../notification'
+
 import './index.css'
 
 class NavBar extends Component {
@@ -11,6 +13,9 @@ class NavBar extends Component {
 
   render() {
     const { auth } = this.props
+    const style = {
+      width: '0px'
+    }
 
     const guestLinks = (
       <nav className="navbar navbar-default">
@@ -64,7 +69,7 @@ class NavBar extends Component {
                   Categories
                   <span className="caret" />
                 </a>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu" style={style}>
                   <li><a href="/foot">Foot</a></li>
                   <li><a href="/foot">Tennis</a></li>
                   <li><a href="/foot">Rugby</a></li>
@@ -84,6 +89,7 @@ class NavBar extends Component {
                   <li><a href="/nousContacter">Nous contacter</a></li>
                 </ul>
               </li>
+              <Notification />
               <li><a href="/logout" onClick={this.logout.bind(this)}>Deconnexion</a></li>
             </ul>
           </div>

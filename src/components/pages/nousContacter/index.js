@@ -40,6 +40,10 @@ class NousContacter extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  /**
+   * Reset form contact
+   *
+   */
   resetForm() {
     document.getElementById('contact').reset()
   }

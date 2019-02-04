@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import FilteredListPost from './filteredListPost/index.js'
+import Footer from '../../footer'
+
 import './index.css'
 
 class AccueilUser extends Component {
@@ -16,7 +18,8 @@ class AccueilUser extends Component {
                   {' '}
                   <span className="diviver">&gt;</span>
                   {' '}
-                  Discussion général
+                  Discussion
+                  <b> général </b>
                   {' '}
                 </a>
                 <span className="diviver">&gt;</span>
@@ -61,6 +64,7 @@ class AccueilUser extends Component {
             </div>
           </div>
         </section>
+        <Footer />
       </div>
     )
   }
