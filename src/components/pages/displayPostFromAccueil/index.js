@@ -68,6 +68,7 @@ class DisplayPostFromAccueil extends Component {
 
     postUserComment(objComment).then(() => {
       getComWithIdPost(match.params.idPost).then((res) => {
+        console.log('res: ', res)
         this.setState({
           comToDisplay: res
         })

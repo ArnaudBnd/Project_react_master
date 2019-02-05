@@ -109,6 +109,13 @@ class ListPost extends Component {
                         {new Date(post.created_at).toLocaleDateString()}
                         {' '}
                       </div>
+                      <div className="views">
+                        <a href="/foot">
+                          <i className="fa fa-pencil-square-o" />
+                          {' '}
+                          {post.idCategorie === '2' ? 'Foot' : 'Tennis'}
+                        </a>
+                      </div>
                     </div>
                     <div className="clearfix" />
                   </div>

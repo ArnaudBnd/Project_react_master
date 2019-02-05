@@ -10,7 +10,8 @@ class Notification extends Component {
 
     this.state = {
       allPostFromUser: [],
-      arrayAllPost: []
+      arrayAllCom: [],
+      comsToDisplay: []
     }
 
     this.displayNotifCom = this.displayNotifCom.bind(this)
@@ -26,6 +27,9 @@ class Notification extends Component {
     const { allPostFromUser } = this.state
     let tmp = null
     const array = []
+
+    console.log('foot', nextProps.foot.dispatchAllComsFoot)
+    console.log('display', nextProps.displayPostFromAccueil.dispatchAllComs)
 
     // En fct de tout les posts du user
     // on va chercher les coms crées
@@ -59,8 +63,17 @@ class Notification extends Component {
       })
 
     this.setState({
-      arrayAllPost: array
+      arrayAllCom: array
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { allPostFromUser } = this.state
+
+    console.log('PAGE REFRAICHE')
+    console.log(prevProps)
+    console.log(prevState)
+    console.log(allPostFromUser)
   }
 
   getAllPostFromUser() {
@@ -74,7 +87,9 @@ class Notification extends Component {
   }
 
   displayNotifCom(user, comment, date) {
-    console.log('here')
+    const { comsToDisplay } = this.state
+    console.log('comsToDisplay: ', comsToDisplay)
+
     return (
       <li className="notification-box">
         <div className="row">
@@ -94,11 +109,11 @@ class Notification extends Component {
   }
 
   showNotifCom() {
-    const { arrayAllPost } = this.state
+    const { arrayAllCom } = this.state
     const arrayToDisplayPost = []
 
-    for (let i = 0; i < arrayAllPost.length; i += 1) {
-      arrayAllPost[i]
+    for (let i = 0; i < arrayAllCom.length; i += 1) {
+      arrayAllCom[i]
         .map(post => arrayToDisplayPost.push(post))
     }
 

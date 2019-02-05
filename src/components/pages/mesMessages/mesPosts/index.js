@@ -153,7 +153,6 @@ class MesPosts extends Component {
 
   render() {
     const { allComs } = this.state
-    console.log('allComs from mesMessages: ', allComs)
 
     return (
       <div className="container">

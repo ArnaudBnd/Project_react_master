@@ -83,7 +83,7 @@ class NavBar extends Component {
                   <i className="fa fa-user" />
                   <span className="caret" />
                 </a>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu" style={style}>
                   <li><a href="/profil">Editer mon profil</a></li>
                   <li><a href="/mesMessages">Mes publications</a></li>
                   <li><a href="/nousContacter">Nous contacter</a></li>
