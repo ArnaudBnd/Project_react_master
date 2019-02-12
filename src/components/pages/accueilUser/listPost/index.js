@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { getAllComToDisplay } from './actions/index'
+import { connect } from 'react-redux'
+import { getAllComToDisplay, postliked } from './actions/index'
 import Categories from '../categories/index.js'
 import '../index.css'
 
@@ -8,11 +9,16 @@ class ListPost extends Component {
     super(props)
 
     this.state = {
-      comToCount: []
+      comToCount: [],
+      isLike: false
     }
 
     this.getAllCom = this.getAllCom.bind(this)
     this.displayNbrOfComs = this.displayNbrOfComs.bind(this)
+    this.handleLikePost = this.handleLikePost.bind(this)
+    this.handleDislikePost = this.handleDislikePost.bind(this)
+    this.showButtonDislike = this.showButtonDislike.bind(this)
+    this.showButtonLike = this.showButtonLike.bind(this)
   }
 
   componentWillMount() {
@@ -46,11 +52,75 @@ class ListPost extends Component {
     return tmp.length
   }
 
+  /**
+   * to like post
+   * @params idPost, e
+   */
+  handleLikePost(e, idElementLiked) {
+    e.preventDefault()
+    const { auth } = this.props
+    const { isLike } = this.state
+
+    console.log('isLike: ', isLike)
+
+    if (!isLike) {
+      postliked(idElementLiked, auth.auth.username).then(() => {
+        this.setState({
+          isLike: true
+        })
+      })
+    } else {
+      console.log('here')
+    }
+  }
+
+  /**
+   * to dislike post
+   * @params idPost, e
+   */
+  handleDislikePost(e, idPost) {
+    e.preventDefault()
+    const { auth } = this.props
+
+    console.log('idPost: ', idPost)
+    console.log('auth: ', auth.auth.username)
+  }
+
+  /**
+   * show button Like
+   * @params idPost
+   * @return dom html
+   */
+  showButtonLike(idPost) {
+    // if isLicked traitement
+    return (
+      <a href="#" className="up">
+        <i className="fa fa-thumbs-o-up" onClick={e => this.handleLikePost(e, idPost)} />
+        25
+      </a>
+    )
+  }
+
+  /**
+   * show button Dislike
+   * @params idPost
+   * @return dom html
+   */
+  showButtonDislike(idPost) {
+    return (
+      <a href="#" className="down">
+        <i className="fa fa-thumbs-o-down" onClick={e => this.handleDislikePost(e, idPost)} />
+        3
+      </a>
+    )
+  }
+
   render() {
     const { allPosts } = this.props
     const style = {
       fontSize: '24px'
     }
+    console.log('allPosts: ', allPosts)
 
     return (
       <div className="container">
@@ -86,6 +156,10 @@ class ListPost extends Component {
                           <br />
                           {post.content}
                         </p>
+                        <div className="likeblock pull-left">
+                          {this.showButtonLike(post.id)}
+                          {this.showButtonDislike(post.id)}
+                        </div>
                       </div>
                       <div className="clearfix" />
                     </div>
@@ -129,4 +203,16 @@ class ListPost extends Component {
   }
 }
 
-export default ListPost
+/**
+ * mapStateToProps
+ * Me permet de récupére la state du store (ici auth)
+ * Et le passe en paramètre dans les props avec connect(props, actions)
+ * De sorte a pourvoir vérifier si l'utilisateur est connecté
+ */
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps, null)(ListPost)

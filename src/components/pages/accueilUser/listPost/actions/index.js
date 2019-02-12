@@ -32,3 +32,17 @@ export function getAllComToDisplay() {
     })
   })
 }
+
+export function postliked(idElementLiked, user) {
+  console.log(idElementLiked)
+  console.log(user)
+
+  return new Promise((resolve) => {
+    axios.post(`${apiPath}/api/likes`, {
+      idElementLiked,
+      user
+    }).then((res) => {
+      resolve(res.data.comments)
+    })
+  })
+}
