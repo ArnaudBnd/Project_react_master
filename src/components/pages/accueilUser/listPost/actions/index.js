@@ -42,7 +42,7 @@ export function postliked(idElementLiked, user) {
       idElementLiked,
       user
     }).then((res) => {
-      resolve(res.data.comments)
+      resolve(res.data)
     })
   })
 }

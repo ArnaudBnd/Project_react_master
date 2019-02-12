@@ -63,15 +63,12 @@ class ListPost extends Component {
 
     console.log('isLike: ', isLike)
 
-    if (!isLike) {
-      postliked(idElementLiked, auth.auth.username).then(() => {
-        this.setState({
-          isLike: true
-        })
+    postliked(idElementLiked, auth.auth.username).then((res) => {
+      console.log('res: ', res)
+      this.setState({
+        isLike: true
       })
-    } else {
-      console.log('here')
-    }
+    })
   }
 
   /**
