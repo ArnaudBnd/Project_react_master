@@ -83,12 +83,21 @@ export function getLikes() {
 }
 
 /**
+  * Disptach like register
+  * @param {Object} coms
+  */
+const deleteLikecliked = deletedLike => ({
+  type: 'DELETE_LIKE',
+  deletedLike
+})
+
+/**
 * Permet de supprimer un commentaire
 * En base
 * @param {Object} idComment
 * @return {Object} Promise response
 */
-export function deletePost(idElementLiked, user) {
+export function deleteLikes(idElementLiked, user) {
   return new Promise((resolve) => {
     axios.delete(`${apiPath}/api/likes/deleted`, {
       params: {
@@ -97,6 +106,7 @@ export function deletePost(idElementLiked, user) {
       }
     }).then((res) => {
       resolve(res)
+      store.dispatch(deleteLikecliked(res))
     })
   })
 }

@@ -4,7 +4,7 @@ import {
   getAllComToDisplay,
   postliked,
   getLikes,
-  deletePost
+  deleteLikes
 } from './actions/index'
 import Categories from '../categories/index.js'
 import '../index.css'
@@ -46,6 +46,11 @@ class ListPost extends Component {
     })
   }
 
+  /**
+   * getAllLikes
+   * pour récupérer tout les likes
+   * actions getLikes() triggered
+   */
   getAllLikes() {
     getLikes().then((res) => {
       this.setState({
@@ -85,7 +90,7 @@ class ListPost extends Component {
         })
       } else {
         // user already like post
-        deletePost(idElementLiked, auth.auth.username).then(() => {
+        deleteLikes(idElementLiked, auth.auth.username).then(() => {
           getLikes().then((resp) => {
             this.setState({
               likesToDisplay: resp
@@ -108,6 +113,11 @@ class ListPost extends Component {
     console.log('auth: ', auth.auth.username)
   }
 
+  /**
+   * showNbrOfLike
+   * @params idPost
+   * @return tmp.length
+   */
   showNbrOfLike(idPost) {
     const { likesToDisplay } = this.state
     const tmp = likesToDisplay.filter(like => like.idElementLiked === idPost)
@@ -121,7 +131,6 @@ class ListPost extends Component {
    * @return dom html
    */
   showButtonLike(idPost) {
-    // ici traitement
     return (
       <a href="#" className="up">
         <i className="fa fa-thumbs-o-up" onClick={e => this.handleLikePost(e, idPost)} />

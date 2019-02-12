@@ -13,7 +13,8 @@
 const allComs = {
   coms: null,
   like: null,
-  allLikes: null
+  allLikes: null,
+  deletedLike: null
 }
 
 /**
@@ -34,6 +35,10 @@ const Coms = (state = allComs, action) => {
     case 'POST_LIKE':
       return {
         ...state, like: action.like
+      }
+    case 'DELETE_LIKE':
+      return {
+        ...state, deletedLike: action.deletedLike
       }
     default:
       return state
