@@ -121,10 +121,10 @@ class ListPost extends Component {
    * @return dom html
    */
   showButtonLike(idPost) {
-    // if isLicked traitement
+    // ici traitement
     return (
       <a href="#" className="up">
-        <i id={idPost} style={{ backgroundColor: 'white' }} className="fa fa-thumbs-o-up" onClick={e => this.handleLikePost(e, idPost)} />
+        <i className="fa fa-thumbs-o-up" onClick={e => this.handleLikePost(e, idPost)} />
         {this.showNbrOfLike(idPost)}
       </a>
     )
