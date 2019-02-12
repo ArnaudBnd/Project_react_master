@@ -11,7 +11,9 @@
  *
  */
 const allComs = {
-  coms: null
+  coms: null,
+  like: null,
+  allLikes: null
 }
 
 /**
@@ -24,6 +26,14 @@ const Coms = (state = allComs, action) => {
     case 'GET_ALL_NBR_COMS':
       return {
         ...state, coms: action.coms
+      }
+    case 'GET_ALL_LIKES':
+      return {
+        ...state, allLikes: action.allLikes
+      }
+    case 'POST_LIKE':
+      return {
+        ...state, like: action.like
       }
     default:
       return state

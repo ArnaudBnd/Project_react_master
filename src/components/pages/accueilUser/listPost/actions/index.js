@@ -20,10 +20,10 @@ const getAllComs = coms => ({
 })
 
 /**
-* Récupérer tout les commentaires pour compter
-*
-* @return {Object} Promise response
-*/
+  * Récupérer tout les commentaires pour compter
+  *
+  * @return {Object} Promise response
+  */
 export function getAllComToDisplay() {
   return new Promise((resolve) => {
     axios.get(`${apiPath}/api/comments`).then((res) => {
@@ -33,16 +33,70 @@ export function getAllComToDisplay() {
   })
 }
 
-export function postliked(idElementLiked, user) {
-  console.log(idElementLiked)
-  console.log(user)
+/**
+  * Disptach like register
+  * @param {Object} coms
+  */
+const postLike = like => ({
+  type: 'POST_LIKE',
+  like
+})
 
+/**
+  * Post un like
+  * @params idElementLiked, user
+  * @return {Object} Promise response
+  */
+export function postliked(idElementLiked, user) {
   return new Promise((resolve) => {
     axios.post(`${apiPath}/api/likes`, {
       idElementLiked,
       user
     }).then((res) => {
       resolve(res.data)
+      store.dispatch(postLike(res.data))
+    })
+  })
+}
+
+/**
+  * Disptach like register
+  * @param {Object} coms
+  */
+const getAllLikes = allLikes => ({
+  type: 'GET_ALL_LIKES',
+  allLikes
+})
+
+/**
+  * Get all like
+  * @params idElementLiked, user
+  * @return {Object} Promise response
+  */
+export function getLikes() {
+  return new Promise((resolve) => {
+    axios.get(`${apiPath}/api/likes`).then((res) => {
+      resolve(res.data.likes)
+      store.dispatch(getAllLikes(res.data.likes))
+    })
+  })
+}
+
+/**
+* Permet de supprimer un commentaire
+* En base
+* @param {Object} idComment
+* @return {Object} Promise response
+*/
+export function deletePost(idElementLiked, user) {
+  return new Promise((resolve) => {
+    axios.delete(`${apiPath}/api/likes/deleted`, {
+      params: {
+        idElementLiked,
+        user
+      }
+    }).then((res) => {
+      resolve(res)
     })
   })
 }

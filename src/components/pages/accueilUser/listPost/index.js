@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllComToDisplay, postliked } from './actions/index'
+import {
+  getAllComToDisplay,
+  postliked,
+  getLikes,
+  deletePost
+} from './actions/index'
 import Categories from '../categories/index.js'
 import '../index.css'
 
@@ -10,19 +15,22 @@ class ListPost extends Component {
 
     this.state = {
       comToCount: [],
-      isLike: false
+      likesToDisplay: []
     }
 
     this.getAllCom = this.getAllCom.bind(this)
+    this.getAllLikes = this.getAllLikes.bind(this)
     this.displayNbrOfComs = this.displayNbrOfComs.bind(this)
     this.handleLikePost = this.handleLikePost.bind(this)
     this.handleDislikePost = this.handleDislikePost.bind(this)
+    this.showNbrOfLike = this.showNbrOfLike.bind(this)
     this.showButtonDislike = this.showButtonDislike.bind(this)
     this.showButtonLike = this.showButtonLike.bind(this)
   }
 
   componentWillMount() {
     this.getAllCom()
+    this.getAllLikes()
   }
 
   /**
@@ -34,6 +42,14 @@ class ListPost extends Component {
     getAllComToDisplay().then((res) => {
       this.setState({
         comToCount: res
+      })
+    })
+  }
+
+  getAllLikes() {
+    getLikes().then((res) => {
+      this.setState({
+        likesToDisplay: res
       })
     })
   }
@@ -59,15 +75,24 @@ class ListPost extends Component {
   handleLikePost(e, idElementLiked) {
     e.preventDefault()
     const { auth } = this.props
-    const { isLike } = this.state
-
-    console.log('isLike: ', isLike)
 
     postliked(idElementLiked, auth.auth.username).then((res) => {
-      console.log('res: ', res)
-      this.setState({
-        isLike: true
-      })
+      if (res.success) {
+        getLikes().then((resp) => {
+          this.setState({
+            likesToDisplay: resp
+          })
+        })
+      } else {
+        // user already like post
+        deletePost(idElementLiked, auth.auth.username).then(() => {
+          getLikes().then((resp) => {
+            this.setState({
+              likesToDisplay: resp
+            })
+          })
+        })
+      }
     })
   }
 
@@ -83,6 +108,13 @@ class ListPost extends Component {
     console.log('auth: ', auth.auth.username)
   }
 
+  showNbrOfLike(idPost) {
+    const { likesToDisplay } = this.state
+    const tmp = likesToDisplay.filter(like => like.idElementLiked === idPost)
+
+    return tmp.length
+  }
+
   /**
    * show button Like
    * @params idPost
@@ -92,8 +124,8 @@ class ListPost extends Component {
     // if isLicked traitement
     return (
       <a href="#" className="up">
-        <i className="fa fa-thumbs-o-up" onClick={e => this.handleLikePost(e, idPost)} />
-        25
+        <i id={idPost} style={{ backgroundColor: 'white' }} className="fa fa-thumbs-o-up" onClick={e => this.handleLikePost(e, idPost)} />
+        {this.showNbrOfLike(idPost)}
       </a>
     )
   }
@@ -114,10 +146,12 @@ class ListPost extends Component {
 
   render() {
     const { allPosts } = this.props
+    const { likesToDisplay } = this.state
     const style = {
       fontSize: '24px'
     }
-    console.log('allPosts: ', allPosts)
+
+    console.log('likesToDisplay: ', likesToDisplay)
 
     return (
       <div className="container">
