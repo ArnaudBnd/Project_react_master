@@ -60,6 +60,15 @@ export function postliked(idElementLiked, user) {
 }
 
 /**
+  * Disptach dislike register
+  * @param {Object} disLike
+  */
+const disLik = disLike => ({
+  type: 'POST_DISLIKE',
+  disLike
+})
+
+/**
   * Get all Dislike
   * @params idElementDisliked, user
   * @return {Object} Promise response
@@ -71,6 +80,7 @@ export function postDisliked(idElementDisliked, user) {
       user
     }).then((res) => {
       resolve(res.data)
+      store.dispatch(disLik(res.data))
     })
   })
 }
@@ -97,19 +107,29 @@ export function getLikes() {
 }
 
 /**
+  * Disptach dislike register
+  * @param {Object} allDisLikes
+  */
+const getAllDisLikes = allDisLikes => ({
+  type: 'GET_ALL_DISLIKES',
+  allDisLikes
+})
+
+/**
   * Get all like
   */
 export function getDisLikes() {
   return new Promise((resolve) => {
     axios.get(`${apiPath}/api/disLikes`).then((res) => {
       resolve(res.data.disLikes)
+      store.dispatch(getAllDisLikes(res.data.disLikes))
     })
   })
 }
 
 /**
   * Disptach like register
-  * @param {Object} coms
+  * @param {Object} deletedLike
   */
 const deleteLikecliked = deletedLike => ({
   type: 'DELETE_LIKE',
@@ -137,9 +157,18 @@ export function deleteLikes(idElementLiked, user) {
 }
 
 /**
+  * Disptach dislike register
+  * @param {Object} deletedDisLike
+  */
+const deleteDisLikecliked = deletedDisLike => ({
+  type: 'DELETE_DISLIKE',
+  deletedDisLike
+})
+
+/**
 * Permet de supprimer un dislike
 * En base
-* @param {Object} idElementLiked, user
+* @param {Object} idElementDisliked, user
 * @return {Object} Promise response
 */
 export function deleteDisLikes(idElementDisliked, user) {
@@ -151,6 +180,7 @@ export function deleteDisLikes(idElementDisliked, user) {
       }
     }).then((res) => {
       resolve(res)
+      store.dispatch(deleteDisLikecliked(res))
     })
   })
 }

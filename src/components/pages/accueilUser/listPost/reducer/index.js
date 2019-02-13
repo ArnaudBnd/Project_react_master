@@ -13,8 +13,11 @@
 const allComs = {
   coms: null,
   like: null,
+  disLike: null,
   allLikes: null,
-  deletedLike: null
+  allDisLikes: null,
+  deletedLike: null,
+  deletedDisLike: null
 }
 
 /**
@@ -32,13 +35,25 @@ const Coms = (state = allComs, action) => {
       return {
         ...state, allLikes: action.allLikes
       }
+    case 'GET_ALL_DISLIKES':
+      return {
+        ...state, allDisLikes: action.allDisLikes
+      }
     case 'POST_LIKE':
       return {
         ...state, like: action.like
       }
+    case 'POST_DISLIKE':
+      return {
+        ...state, disLike: action.disLike
+      }
     case 'DELETE_LIKE':
       return {
         ...state, deletedLike: action.deletedLike
+      }
+    case 'DELETE_DISLIKE':
+      return {
+        ...state, deletedDisLike: action.deletedDisLike
       }
     default:
       return state
