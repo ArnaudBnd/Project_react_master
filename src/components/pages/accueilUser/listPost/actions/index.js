@@ -96,6 +96,7 @@ const getAllLikes = allLikes => ({
 
 /**
   * Get all like
+  *
   */
 export function getLikes() {
   return new Promise((resolve) => {
@@ -107,7 +108,7 @@ export function getLikes() {
 }
 
 /**
-  * Disptach dislike register
+  * Disptach alldislike register
   * @param {Object} allDisLikes
   */
 const getAllDisLikes = allDisLikes => ({
@@ -117,6 +118,7 @@ const getAllDisLikes = allDisLikes => ({
 
 /**
   * Get all like
+  *
   */
 export function getDisLikes() {
   return new Promise((resolve) => {
@@ -157,7 +159,7 @@ export function deleteLikes(idElementLiked, user) {
 }
 
 /**
-  * Disptach dislike register
+  * Disptach deletedDisLike register
   * @param {Object} deletedDisLike
   */
 const deleteDisLikecliked = deletedDisLike => ({

@@ -68,7 +68,7 @@ class ListPost extends Component {
 
   /**
    * getAllDislikes
-   * pour récupérer tout les ldisikes
+   * pour récupérer tout les dislikes
    * actions getDisLikes() triggered
    */
   getAllDislikes() {
