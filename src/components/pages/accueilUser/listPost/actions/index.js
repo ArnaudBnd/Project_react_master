@@ -60,6 +60,22 @@ export function postliked(idElementLiked, user) {
 }
 
 /**
+  * Get all Dislike
+  * @params idElementDisliked, user
+  * @return {Object} Promise response
+  */
+export function postDisliked(idElementDisliked, user) {
+  return new Promise((resolve) => {
+    axios.post(`${apiPath}/api/disLikes`, {
+      idElementDisliked,
+      user
+    }).then((res) => {
+      resolve(res.data)
+    })
+  })
+}
+
+/**
   * Disptach like register
   * @param {Object} coms
   */
@@ -70,14 +86,23 @@ const getAllLikes = allLikes => ({
 
 /**
   * Get all like
-  * @params idElementLiked, user
-  * @return {Object} Promise response
   */
 export function getLikes() {
   return new Promise((resolve) => {
     axios.get(`${apiPath}/api/likes`).then((res) => {
       resolve(res.data.likes)
       store.dispatch(getAllLikes(res.data.likes))
+    })
+  })
+}
+
+/**
+  * Get all like
+  */
+export function getDisLikes() {
+  return new Promise((resolve) => {
+    axios.get(`${apiPath}/api/disLikes`).then((res) => {
+      resolve(res.data.disLikes)
     })
   })
 }
@@ -92,9 +117,9 @@ const deleteLikecliked = deletedLike => ({
 })
 
 /**
-* Permet de supprimer un commentaire
+* Permet de supprimer un like
 * En base
-* @param {Object} idComment
+* @param {Object} idElementLiked, user
 * @return {Object} Promise response
 */
 export function deleteLikes(idElementLiked, user) {
@@ -107,6 +132,25 @@ export function deleteLikes(idElementLiked, user) {
     }).then((res) => {
       resolve(res)
       store.dispatch(deleteLikecliked(res))
+    })
+  })
+}
+
+/**
+* Permet de supprimer un dislike
+* En base
+* @param {Object} idElementLiked, user
+* @return {Object} Promise response
+*/
+export function deleteDisLikes(idElementDisliked, user) {
+  return new Promise((resolve) => {
+    axios.delete(`${apiPath}/api/disLikes/deleted`, {
+      params: {
+        idElementDisliked,
+        user
+      }
+    }).then((res) => {
+      resolve(res)
     })
   })
 }

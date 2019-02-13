@@ -3,8 +3,11 @@ import { connect } from 'react-redux'
 import {
   getAllComToDisplay,
   postliked,
+  postDisliked,
   getLikes,
-  deleteLikes
+  getDisLikes,
+  deleteLikes,
+  deleteDisLikes
 } from './actions/index'
 import Categories from '../categories/index.js'
 import '../index.css'
@@ -15,15 +18,18 @@ class ListPost extends Component {
 
     this.state = {
       comToCount: [],
-      likesToDisplay: []
+      likesToDisplay: [],
+      disLikesToDisplay: []
     }
 
     this.getAllCom = this.getAllCom.bind(this)
     this.getAllLikes = this.getAllLikes.bind(this)
+    this.getAllDislikes = this.getAllDislikes.bind(this)
     this.displayNbrOfComs = this.displayNbrOfComs.bind(this)
     this.handleLikePost = this.handleLikePost.bind(this)
     this.handleDislikePost = this.handleDislikePost.bind(this)
     this.showNbrOfLike = this.showNbrOfLike.bind(this)
+    this.showNbrOfDisLike = this.showNbrOfDisLike.bind(this)
     this.showButtonDislike = this.showButtonDislike.bind(this)
     this.showButtonLike = this.showButtonLike.bind(this)
   }
@@ -31,6 +37,7 @@ class ListPost extends Component {
   componentWillMount() {
     this.getAllCom()
     this.getAllLikes()
+    this.getAllDislikes()
   }
 
   /**
@@ -60,6 +67,19 @@ class ListPost extends Component {
   }
 
   /**
+   * getAllDislikes
+   * pour récupérer tout les ldisikes
+   * actions getDisLikes() triggered
+   */
+  getAllDislikes() {
+    getDisLikes().then((res) => {
+      this.setState({
+        disLikesToDisplay: res
+      })
+    })
+  }
+
+  /**
    * getAllCom
    * pour compter le nbr de com par post
    * actions getAllComToDisplay
@@ -75,7 +95,7 @@ class ListPost extends Component {
 
   /**
    * to like post
-   * @params idPost, e
+   * @params idElementLiked, e
    */
   handleLikePost(e, idElementLiked) {
     e.preventDefault()
@@ -103,14 +123,29 @@ class ListPost extends Component {
 
   /**
    * to dislike post
-   * @params idPost, e
+   * @params idElementDisliked, e
    */
-  handleDislikePost(e, idPost) {
+  handleDislikePost(e, idElementDisliked) {
     e.preventDefault()
     const { auth } = this.props
 
-    console.log('idPost: ', idPost)
-    console.log('auth: ', auth.auth.username)
+    postDisliked(idElementDisliked, auth.auth.username).then((res) => {
+      if (res.success) {
+        getDisLikes().then((resp) => {
+          this.setState({
+            disLikesToDisplay: resp
+          })
+        })
+      } else {
+        deleteDisLikes(idElementDisliked, auth.auth.username).then(() => {
+          getDisLikes().then((resp) => {
+            this.setState({
+              disLikesToDisplay: resp
+            })
+          })
+        })
+      }
+    })
   }
 
   /**
@@ -121,6 +156,18 @@ class ListPost extends Component {
   showNbrOfLike(idPost) {
     const { likesToDisplay } = this.state
     const tmp = likesToDisplay.filter(like => like.idElementLiked === idPost)
+
+    return tmp.length
+  }
+
+  /**
+   * showNbrOfDisLike
+   * @params idPost
+   * @return tmp.length
+   */
+  showNbrOfDisLike(idPost) {
+    const { disLikesToDisplay } = this.state
+    const tmp = disLikesToDisplay.filter(disLike => disLike.idElementDisliked === idPost)
 
     return tmp.length
   }
@@ -148,19 +195,16 @@ class ListPost extends Component {
     return (
       <a href="#" className="down">
         <i className="fa fa-thumbs-o-down" onClick={e => this.handleDislikePost(e, idPost)} />
-        3
+        {this.showNbrOfDisLike(idPost)}
       </a>
     )
   }
 
   render() {
     const { allPosts } = this.props
-    const { likesToDisplay } = this.state
     const style = {
       fontSize: '24px'
     }
-
-    console.log('likesToDisplay: ', likesToDisplay)
 
     return (
       <div className="container">
