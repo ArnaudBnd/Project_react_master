@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Pagination from 'react-js-pagination'
 import { connect } from 'react-redux'
 import {
   getAllComToDisplay,
@@ -19,7 +20,8 @@ class ListPost extends Component {
     this.state = {
       comToCount: [],
       likesToDisplay: [],
-      disLikesToDisplay: []
+      disLikesToDisplay: [],
+      activePage: 2
     }
 
     this.getAllCom = this.getAllCom.bind(this)
@@ -28,6 +30,7 @@ class ListPost extends Component {
     this.displayNbrOfComs = this.displayNbrOfComs.bind(this)
     this.handleLikePost = this.handleLikePost.bind(this)
     this.handleDislikePost = this.handleDislikePost.bind(this)
+    this.handlePageChange = this.handlePageChange.bind(this)
     this.showNbrOfLike = this.showNbrOfLike.bind(this)
     this.showNbrOfDisLike = this.showNbrOfDisLike.bind(this)
     this.showButtonDislike = this.showButtonDislike.bind(this)
@@ -101,7 +104,7 @@ class ListPost extends Component {
     e.preventDefault()
     const { auth } = this.props
 
-    postliked(idElementLiked, auth.auth.username).then((res) => {
+    postliked(idElementLiked, auth.auth.id).then((res) => {
       if (res.success) {
         getLikes().then((resp) => {
           this.setState({
@@ -110,7 +113,7 @@ class ListPost extends Component {
         })
       } else {
         // user already like post
-        deleteLikes(idElementLiked, auth.auth.username).then(() => {
+        deleteLikes(idElementLiked, auth.auth.id).then(() => {
           getLikes().then((resp) => {
             this.setState({
               likesToDisplay: resp
@@ -129,7 +132,7 @@ class ListPost extends Component {
     e.preventDefault()
     const { auth } = this.props
 
-    postDisliked(idElementDisliked, auth.auth.username).then((res) => {
+    postDisliked(idElementDisliked, auth.auth.id).then((res) => {
       if (res.success) {
         getDisLikes().then((resp) => {
           this.setState({
@@ -137,7 +140,7 @@ class ListPost extends Component {
           })
         })
       } else {
-        deleteDisLikes(idElementDisliked, auth.auth.username).then(() => {
+        deleteDisLikes(idElementDisliked, auth.auth.id).then(() => {
           getDisLikes().then((resp) => {
             this.setState({
               disLikesToDisplay: resp
@@ -155,7 +158,7 @@ class ListPost extends Component {
    */
   showNbrOfLike(idPost) {
     const { likesToDisplay } = this.state
-    const tmp = likesToDisplay.filter(like => like.idElementLiked === idPost)
+    const tmp = likesToDisplay.filter(like => like.id_element === idPost)
 
     return tmp.length
   }
@@ -167,7 +170,7 @@ class ListPost extends Component {
    */
   showNbrOfDisLike(idPost) {
     const { disLikesToDisplay } = this.state
-    const tmp = disLikesToDisplay.filter(disLike => disLike.idElementDisliked === idPost)
+    const tmp = disLikesToDisplay.filter(disLike => disLike.id_element === idPost)
 
     return tmp.length
   }
@@ -200,8 +203,13 @@ class ListPost extends Component {
     )
   }
 
+  handlePageChange(pageNumber) {
+    this.setState({ activePage: pageNumber })
+  }
+
   render() {
     const { allPosts } = this.props
+    const { activePage } = this.state
     const style = {
       fontSize: '24px'
     }
@@ -282,6 +290,13 @@ class ListPost extends Component {
           </div>
           <Categories allPosts={allPosts} />
         </div>
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={2}
+          totalItemsCount={allPosts.length}
+          pageRangeDisplayed={5}
+          onChange={this.handlePageChange}
+        />
       </div>
     )
   }

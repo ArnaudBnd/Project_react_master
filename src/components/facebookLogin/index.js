@@ -21,7 +21,6 @@ class Facebook extends Component {
   }
 
   responseFacebook(response) {
-    console.log('response', response)
     this.setState({
       isLoggedIn: true,
       userID: response.userID,

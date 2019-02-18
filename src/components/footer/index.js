@@ -9,7 +9,7 @@ class Footer extends Component {
           <div className="container">
             <ul>
               <li><a href="#">Company Information</a></li>
-              <li><a href="#">Nous contacter</a></li>
+              <li><a href="/nousContacter">Nous contacter</a></li>
               <li><a href="#">Reviews</a></li>
               <li><a href="#">Terms of service</a></li>
             </ul>

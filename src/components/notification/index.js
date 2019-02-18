@@ -28,9 +28,6 @@ class Notification extends Component {
     let tmp = null
     const array = []
 
-    console.log('foot', nextProps.foot.dispatchAllComsFoot)
-    console.log('display', nextProps.displayPostFromAccueil.dispatchAllComs)
-
     // En fct de tout les posts du user
     // on va chercher les coms crées
     allPostFromUser
@@ -70,7 +67,6 @@ class Notification extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { allPostFromUser } = this.state
 
-    console.log('PAGE REFRAICHE')
     console.log(prevProps)
     console.log(prevState)
     console.log(allPostFromUser)
@@ -87,9 +83,6 @@ class Notification extends Component {
   }
 
   displayNotifCom(user, comment, date) {
-    const { comsToDisplay } = this.state
-    console.log('comsToDisplay: ', comsToDisplay)
-
     return (
       <li className="notification-box">
         <div className="row">

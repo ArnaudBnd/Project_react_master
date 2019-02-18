@@ -3,6 +3,7 @@ import TextFieldGroup from '../../textField/textFieldGroup'
 import {
   sendEmail
 } from './actions/index'
+import Footer from '../../footer'
 
 import './index.css'
 
@@ -29,8 +30,7 @@ class NousContacter extends Component {
   onSubmit(e) {
     e.preventDefault()
 
-    sendEmail(this.state).then((res) => {
-      console.log('res from client: ', res)
+    sendEmail(this.state).then(() => {
       this.setState({
         isSent: true
       })
@@ -53,7 +53,6 @@ class NousContacter extends Component {
   }
 
   render() {
-    let returnValue
     const {
       username,
       email,
@@ -64,75 +63,74 @@ class NousContacter extends Component {
       errors
     } = this.state
 
-    if (isSent) {
-      returnValue = (
-        <div className="jumbotron text-xs-center">
-          <h1 className="display-3">Thank You!</h1>
-          <p className="lead">
-            <strong>Please check your email</strong>
-            {' '}
-            for further instructions on the subject.
-          </p>
-          <hr />
-          <p>
-            Having trouble?
-            <a href="/nousContacter">Contact us</a>
-          </p>
-          <p className="lead">
-            <a className="btn btn-primary btn-sm" href="/accueilUser" role="button">Continue to homepage</a>
-          </p>
-        </div>
-      )
-    } else {
-      returnValue = (
-        <div className="contenaire">
-          <form id="contact" onSubmit={this.onSubmit}>
-            <h3>Ecrivez nous un message</h3>
+    const emailHtml = (
+      <div className="contenaire">
+        <form id="contact" onSubmit={this.onSubmit}>
+          <h3>Ecrivez nous un message</h3>
 
-            <TextFieldGroup
-              error={errors.username}
-              label="Username"
-              onChange={this.onChange}
-              value={username}
-              type="text"
-              field="username"
-            />
-            <TextFieldGroup
-              error={errors.username}
-              label="Email"
-              onChange={this.onChange}
-              value={email}
-              field="email"
-              type="email"
-            />
-            <TextFieldGroup
-              error={errors.username}
-              label="Tel"
-              onChange={this.onChange}
-              value={phone}
-              field="phone"
-              type="tel"
-            />
-            <TextFieldGroup
-              error={errors.username}
-              label="Title"
-              onChange={this.onChange}
-              value={title}
-              field="title"
-              type="text"
-            />
-            <h3 className="control-label">Contenu</h3>
-            <textarea type="text" name="content" className="form-control" onChange={this.onChange} value={content} placeholder="Type your message here...." required />
+          <TextFieldGroup
+            error={errors.username}
+            label="Username"
+            onChange={this.onChange}
+            value={username}
+            type="text"
+            field="username"
+          />
+          <TextFieldGroup
+            error={errors.username}
+            label="Email"
+            onChange={this.onChange}
+            value={email}
+            field="email"
+            type="email"
+          />
+          <TextFieldGroup
+            error={errors.username}
+            label="Tel"
+            onChange={this.onChange}
+            value={phone}
+            field="phone"
+            type="tel"
+          />
+          <TextFieldGroup
+            error={errors.username}
+            label="Title"
+            onChange={this.onChange}
+            value={title}
+            field="title"
+            type="text"
+          />
+          <h3 className="control-label">Contenu</h3>
+          <textarea type="text" name="content" className="form-control" onChange={this.onChange} value={content} placeholder="Type your message here...." required />
 
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
-          </form>
-        </div>
-      )
-    }
+          <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Envoyer</button>
+        </form>
+      </div>
+    )
+
+    const emailSent = (
+      <div className="jumbotron text-xs-center">
+        <h1 className="display-3">Merci pour votre message!</h1>
+        <p className="lead">
+          <strong>Please check your email</strong>
+          {' '}
+          for further instructions on the subject.
+        </p>
+        <hr />
+        <p>
+          Having trouble?
+          <a href="/nousContacter">Contact us</a>
+        </p>
+        <p className="lead">
+          <a className="btn btn-primary btn-sm" href="/accueilUser" role="button">Continue to accueil</a>
+        </p>
+      </div>
+    )
 
     return (
       <div>
-        {returnValue}
+        {isSent ? emailSent : emailHtml}
+        <Footer />
       </div>
     )
   }

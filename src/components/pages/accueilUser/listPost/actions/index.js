@@ -44,14 +44,14 @@ const postLike = like => ({
 
 /**
   * Post un like
-  * @params idElementLiked, user
+  * @params idElementLiked, idUser
   * @return {Object} Promise response
   */
-export function postliked(idElementLiked, user) {
+export function postliked(id_element, id_user) {
   return new Promise((resolve) => {
     axios.post(`${apiPath}/api/likes`, {
-      idElementLiked,
-      user
+      id_element,
+      id_user
     }).then((res) => {
       resolve(res.data)
       store.dispatch(postLike(res.data))
@@ -70,14 +70,14 @@ const disLik = disLike => ({
 
 /**
   * Get all Dislike
-  * @params idElementDisliked, user
+  * @params idElementDisliked, idUser
   * @return {Object} Promise response
   */
-export function postDisliked(idElementDisliked, user) {
+export function postDisliked(id_element, id_user) {
   return new Promise((resolve) => {
     axios.post(`${apiPath}/api/disLikes`, {
-      idElementDisliked,
-      user
+      id_element,
+      id_user
     }).then((res) => {
       resolve(res.data)
       store.dispatch(disLik(res.data))
@@ -141,15 +141,15 @@ const deleteLikecliked = deletedLike => ({
 /**
 * Permet de supprimer un like
 * En base
-* @param {Object} idElementLiked, user
+* @param {Object} idElementLiked, idUser
 * @return {Object} Promise response
 */
-export function deleteLikes(idElementLiked, user) {
+export function deleteLikes(id_element, id_user) {
   return new Promise((resolve) => {
     axios.delete(`${apiPath}/api/likes/deleted`, {
       params: {
-        idElementLiked,
-        user
+        id_element,
+        id_user
       }
     }).then((res) => {
       resolve(res)
@@ -170,15 +170,15 @@ const deleteDisLikecliked = deletedDisLike => ({
 /**
 * Permet de supprimer un dislike
 * En base
-* @param {Object} idElementDisliked, user
+* @param {Object} idElementDisliked, idUser
 * @return {Object} Promise response
 */
-export function deleteDisLikes(idElementDisliked, user) {
+export function deleteDisLikes(id_element, id_user) {
   return new Promise((resolve) => {
     axios.delete(`${apiPath}/api/disLikes/deleted`, {
       params: {
-        idElementDisliked,
-        user
+        id_element,
+        id_user
       }
     }).then((res) => {
       resolve(res)

@@ -12,6 +12,8 @@ import {
   deleteCommentTrainingFromUser,
   dispatchComs
 } from './actions/index'
+import MeilleurPost from '../../meilleurPost/index.js'
+import Footer from '../../footer'
 
 class Foot extends Component {
   constructor(props) {
@@ -631,120 +633,90 @@ class Foot extends Component {
     const { isArticleUpdate, postToDisplay } = this.state
 
     return (
-      <section className="content">
-        <hr />
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8">
-              <a href="#">
-                <i className="fa fa-home" />
-                {' '}
+      <div>
+        <section className="content">
+          <hr />
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-8">
+                <a href="#">
+                  <i className="fa fa-home" />
+                  {' '}
+                  <span className="diviver">&gt;</span>
+                  {' '}
+                  Discussion
+                  <b> foot </b>
+                  {' '}
+                </a>
                 <span className="diviver">&gt;</span>
-                {' '}
-                Discussion
-                <b> foot </b>
-                {' '}
-              </a>
-              <span className="diviver">&gt;</span>
-            </div>
-            <div className="col-lg-8 col-md-8">
-              <form id="formFoot" style={{ display: 'none' }} onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <h3 className="control-label">Foot</h3>
-                </div>
-                <div className="form-group">
-                  <h3 className="control-label">Titre</h3>
-                  <input type="text" name="title" className="form-control" onChange={this.onChange} />
-                </div>
-                <div className="form-group">
-                  <h3 className="control-label">Description</h3>
-                  <textarea name="content" className="form-control" id="exampleTextarea" rows="3" onChange={this.onChange} />
-                </div>
-                <button type="submit" className="btn btn-primary">{isArticleUpdate ? 'Mettre à jour le partager' : 'Partager'}</button>
-              </form>
-              <hr />
-              <button type="submit" onClick={e => this.onSubmitDisplayFormPost(e)} className="btn btn-primary">Start New Topic</button>
-              <hr />
-              <h4>
-                Nombre total de posts:
-                {' '}
-                {postToDisplay.length}
-              </h4>
-            </div>
-
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-8 col-md-8">
-                  {this.showArticleTraining()}
-                </div>
-                <div className="col-lg-4 col-md-4">
-                  <div className="sidebarblock">
-                    <h3>Le + populaire</h3>
-                    <div className="divline" />
-                    <div className="blocktxt">
-                      <ul className="cats">
-                        <li>
-                          <a href="/foot">
-                            Foot
-                            <span className="badge pull-right">20</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            Tennis
-                            <span className="badge pull-right">16</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            Rugby
-                            <span className="badge pull-right">13</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#">
-                            Judo
-                            <span className="badge pull-right">1</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
+              </div>
+              <div className="col-lg-8 col-md-8">
+                <form id="formFoot" style={{ display: 'none' }} onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <h3 className="control-label">Foot</h3>
                   </div>
+                  <div className="form-group">
+                    <h3 className="control-label">Titre</h3>
+                    <input type="text" name="title" className="form-control" onChange={this.onChange} />
+                  </div>
+                  <div className="form-group">
+                    <h3 className="control-label">Description</h3>
+                    <textarea name="content" className="form-control" id="exampleTextarea" rows="3" onChange={this.onChange} />
+                  </div>
+                  <button type="submit" className="btn btn-primary">{isArticleUpdate ? 'Mettre à jour le partager' : 'Partager'}</button>
+                </form>
+                <hr />
+                <button type="submit" onClick={e => this.onSubmitDisplayFormPost(e)} className="btn btn-primary">Start New Topic</button>
+                <hr />
+                <h4>
+                  Nombre total de posts:
+                  {' '}
+                  {postToDisplay.length}
+                </h4>
+              </div>
+
+              <div className="container">
+                <div className="row">
+                  <div className="col-lg-8 col-md-8">
+                    {this.showArticleTraining()}
+                  </div>
+                  <MeilleurPost />
                 </div>
+                <div className="pull-left">
+                  <a href="#" className="prevnext">
+                    <i className="fa fa-angle-left" />
+                  </a>
+                </div>
+                <div className="pull-left">
+                  <ul className="paginationforum">
+                    <li className="hidden-xs"><a href="#">1</a></li>
+                    <li className="hidden-xs"><a href="#">2</a></li>
+                    <li className="hidden-xs"><a href="#">3</a></li>
+                    <li className="hidden-xs"><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                    <li><a href="#" className="active">7</a></li>
+                    <li><a href="#">8</a></li>
+                    <li className="hidden-xs"><a href="#">9</a></li>
+                    <li className="hidden-xs"><a href="#">10</a></li>
+                    <li className="hidden-xs hidden-md"><a href="#">11</a></li>
+                    <li className="hidden-xs hidden-md"><a href="#">12</a></li>
+                    <li className="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
+                    <li><a href="#">1586</a></li>
+                  </ul>
+                </div>
+                <div className="pull-left">
+                  <a href="#" className="prevnext last">
+                    <i className="fa fa-angle-right" />
+                  </a>
+                </div>
+                <div className="clearfix" />
               </div>
-              <div className="pull-left">
-                <a href="#" className="prevnext">
-                  <i className="fa fa-angle-left" />
-                </a>
-              </div>
-              <div className="pull-left">
-                <ul className="paginationforum">
-                  <li className="hidden-xs"><a href="#">1</a></li>
-                  <li className="hidden-xs"><a href="#">2</a></li>
-                  <li className="hidden-xs"><a href="#">3</a></li>
-                  <li className="hidden-xs"><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">6</a></li>
-                  <li><a href="#" className="active">7</a></li>
-                  <li><a href="#">8</a></li>
-                  <li className="hidden-xs"><a href="#">9</a></li>
-                  <li className="hidden-xs"><a href="#">10</a></li>
-                  <li className="hidden-xs hidden-md"><a href="#">11</a></li>
-                  <li className="hidden-xs hidden-md"><a href="#">12</a></li>
-                  <li className="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
-                  <li><a href="#">1586</a></li>
-                </ul>
-              </div>
-              <div className="pull-left">
-                <a href="#" className="prevnext last">
-                  <i className="fa fa-angle-right" />
-                </a>
-              </div>
-              <div className="clearfix" />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <Footer />
+      </div>
     )
   }
 }

@@ -6,6 +6,12 @@ import Notification from '../notification'
 import './index.css'
 
 class NavBar extends Component {
+  /**
+   * lougout
+   * permet de deconnecter un user
+   * action triggered logout()
+   * params e
+   */
   logout(e) {
     e.preventDefault()
     logout()
