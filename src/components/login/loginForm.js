@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import TextFieldGroup from '../textField/textFieldGroup'
 import validateInput from '../../../shared/validations/login'
-import Facebook from '../facebookLogin'
 
 /**
   * LoginForm
@@ -108,7 +107,6 @@ class LoginForm extends Component {
             <br />
             <br />
             <br />
-            <Facebook />
             <div className="form-group"><button type="submit" className="btn btn-primary btn-lg" disabled={isLoading}>Login</button></div>
           </form>
         </div>

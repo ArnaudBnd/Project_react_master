@@ -12,23 +12,16 @@ export default function (ComposedComponent) {
     // Redirection quand l'utilisateur veut acceder
     // à une page sans être connecté
     componentWillMount() {
-      const { isAuthentificated, isAuthentificatedFacebook, history } = this.props
-
-      console.log('isAuthentificatedFacebook: ', isAuthentificatedFacebook)
-      console.log('isAuthentificated: ', isAuthentificated)
+      const { isAuthentificated, history } = this.props
 
       if (!isAuthentificated) {
-        if (!isAuthentificatedFacebook) {
-          console.log('here')
-          history.push('/login')
-          alert('Vous devez vous connecter pour avoir accès à cette page')
-        }
+        history.push('/login')
+        alert('Vous devez vous connecter pour avoir accès à cette page')
       }
     }
 
     // Redirection quand l'utilisateur logout
     componentWillUpdate(nextProps) {
-      console.log(nextProps)
       const { history } = this.props
 
       if (!nextProps.isAuthentificated) {
@@ -51,8 +44,7 @@ export default function (ComposedComponent) {
    */
   function mapStateToProps(state) {
     return {
-      isAuthentificated: state.auth.isAuthentificated,
-      isAuthentificatedFacebook: state.authFacebook.isAuthentificatedFacebook
+      isAuthentificated: state.auth.isAuthentificated
     }
   }
 

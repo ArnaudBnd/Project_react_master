@@ -14,9 +14,9 @@ import { apiPath } from '../../../utils/urlAPI'
   * Disptach post register
   * @param {Object} comment
   */
-const getPost = getPosts => ({
-  type: 'GET_ALL_POST_FROM_USER',
-  getPosts
+const getCom = getComs => ({
+  type: 'GET_ALL_COM_FROM_USER',
+  getComs
 })
 
 /**
@@ -24,12 +24,12 @@ const getPost = getPosts => ({
   * @param {Object} id
   * @return {Object} Promise response
   */
-export function getAllPost(id) {
+export function getAllComFomUser(username) {
   return new Promise((resolve) => {
-    axios.get(`${apiPath}/api/posts/${id}`)
+    axios.get(`${apiPath}/api/notifications/${username}`)
       .then((response) => {
-        resolve(response.data.posts)
-        store.dispatch(getPost(response.data.posts))
+        resolve(response.data.com)
+        store.dispatch(getCom(response.data.com))
       })
   })
 }

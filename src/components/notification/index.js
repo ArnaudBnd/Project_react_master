@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllPost } from './actions/index'
+import { getAllComFomUser } from './actions/index'
 
 import './index.css'
 
@@ -9,75 +9,25 @@ class Notification extends Component {
     super(props)
 
     this.state = {
-      allPostFromUser: [],
-      arrayAllCom: [],
-      comsToDisplay: []
+      allComToDisplayFromUser: []
     }
 
     this.displayNotifCom = this.displayNotifCom.bind(this)
+    this.getAllComFromUser = this.getAllComFromUser.bind(this)
     this.showNotifCom = this.showNotifCom.bind(this)
-    this.getAllPostFromUser = this.getAllPostFromUser.bind(this)
   }
 
   componentDidMount() {
-    this.getAllPostFromUser()
+    this.getAllComFromUser()
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { allPostFromUser } = this.state
-    let tmp = null
-    const array = []
-
-    // En fct de tout les posts du user
-    // on va chercher les coms crées
-    allPostFromUser
-      .map((post) => {
-        // COM ADD DELETE FOOT
-        if (nextProps
-          .foot
-          .dispatchAllComsFoot !== undefined && nextProps.foot.dispatchAllComsFoot !== null) {
-          tmp = nextProps.foot.dispatchAllComsFoot
-            .filter(postFoot => post.id === postFoot.idPost)
-          if (tmp.length !== 0) {
-            array.push(tmp)
-          }
-          // on recupère chaque commentaire pour les posts d'un user connecté
-        }
-
-        // COM ADD DELETE DISPLAYPOSTFROMACCUEIL
-        if (nextProps
-          .displayPostFromAccueil
-          .dispatchAllComs !== undefined
-          && nextProps.displayPostFromAccueil.dispatchAllComs !== null) {
-          tmp = nextProps.displayPostFromAccueil.dispatchAllComs
-            .filter(postDisplay => post.id === postDisplay.idPost)
-          if (tmp.length !== 0) {
-            array.push(tmp)
-          }
-        }
-
-        return array
-      })
-
-    this.setState({
-      arrayAllCom: array
-    })
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { allPostFromUser } = this.state
-
-    console.log(prevProps)
-    console.log(prevState)
-    console.log(allPostFromUser)
-  }
-
-  getAllPostFromUser() {
+  getAllComFromUser() {
     const { auth } = this.props
+    console.log(auth.auth.username)
 
-    getAllPost(auth.auth.id).then((allPost) => {
+    getAllComFomUser(auth.auth.username).then((res) => {
       this.setState({
-        allPostFromUser: allPost
+        allComToDisplayFromUser: res
       })
     })
   }
@@ -102,16 +52,11 @@ class Notification extends Component {
   }
 
   showNotifCom() {
-    const { arrayAllCom } = this.state
-    const arrayToDisplayPost = []
-
-    for (let i = 0; i < arrayAllCom.length; i += 1) {
-      arrayAllCom[i]
-        .map(post => arrayToDisplayPost.push(post))
-    }
+    const { allComToDisplayFromUser } = this.state
+    console.log(allComToDisplayFromUser)
 
     return (
-      arrayToDisplayPost
+      allComToDisplayFromUser
         .map(post => this.displayNotifCom(
           post.user,
           post.comment,
@@ -130,6 +75,7 @@ class Notification extends Component {
           <li className="head text-light bg-dark">
             <div className="col-lg-12 col-sm-12 col-12">
               <span>Notifications (3)</span>
+              {' '}
               <a href="" className="float-right text-light">Mark all as read</a>
             </div>
           </li>
@@ -151,8 +97,6 @@ class Notification extends Component {
  */
 function mapStateToProps(state) {
   return {
-    displayPostFromAccueil: state.displayPostFromAccueil,
-    foot: state.foot,
     auth: state.auth
   }
 }
