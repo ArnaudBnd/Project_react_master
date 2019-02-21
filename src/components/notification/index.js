@@ -19,48 +19,60 @@ class Notification extends Component {
 
   componentDidMount() {
     this.getAllComFromUser()
+
+    if (window.socket !== null) {
+      console.log('--> notification envoyé')
+      window.socket.on('userDataToNotify', (data) => {
+        console.log('userDataToNotify', data)
+      })
+    } else {
+      console.log('--> notification nop')
+    }
   }
 
   getAllComFromUser() {
     const { auth } = this.props
-    console.log(auth.auth.username)
 
     getAllComFomUser(auth.auth.username).then((res) => {
+      // On crée que les notifs des coms qui sont pas celui du user connecté
+      const tmp = res.filter(com => com.user !== auth.auth.username)
       this.setState({
-        allComToDisplayFromUser: res
+        allComToDisplayFromUser: tmp
       })
     })
   }
 
-  displayNotifCom(user, comment, date) {
+  displayNotifCom(user, comment, date, idPost) {
     return (
       <li className="notification-box">
-        <div className="row">
-          <div className="col-lg-3 col-sm-3 col-3 text-center">
-            <img alt="" src="/demo/man-profile.jpg" className="w-50 rounded-circle" />
-          </div>
-          <div className="col-lg-8 col-sm-8 col-8">
-            <strong className="text-info">{user}</strong>
-            <div>
-              {comment}
+        <a href={`/displayPostFromAccueil/${idPost}`}>
+          <div className="row">
+            <div className="col-lg-8 col-sm-8 col-8">
+              <strong className="text-info">{user}</strong>
+              <div>
+                {comment}
+              </div>
+              <small className="text-warning">{new Date(date).toLocaleDateString()}</small>
             </div>
-            <small className="text-warning">{new Date(date).toLocaleDateString()}</small>
+            <div className="col-lg-1 col-sm-3 col-3">
+              <span className="badge pull-right">foot</span>
+            </div>
           </div>
-        </div>
+        </a>
       </li>
     )
   }
 
   showNotifCom() {
     const { allComToDisplayFromUser } = this.state
-    console.log(allComToDisplayFromUser)
 
     return (
       allComToDisplayFromUser
         .map(post => this.displayNotifCom(
           post.user,
           post.comment,
-          post.date
+          post.date,
+          post.idPost
         ))
     )
   }

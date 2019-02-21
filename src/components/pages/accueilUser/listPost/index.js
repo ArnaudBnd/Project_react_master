@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Pagination from 'react-js-pagination'
 import { connect } from 'react-redux'
 import {
   getAllComToDisplay,
@@ -20,8 +19,7 @@ class ListPost extends Component {
     this.state = {
       comToCount: [],
       likesToDisplay: [],
-      disLikesToDisplay: [],
-      activePage: 2
+      disLikesToDisplay: []
     }
 
     this.getAllCom = this.getAllCom.bind(this)
@@ -30,7 +28,6 @@ class ListPost extends Component {
     this.displayNbrOfComs = this.displayNbrOfComs.bind(this)
     this.handleLikePost = this.handleLikePost.bind(this)
     this.handleDislikePost = this.handleDislikePost.bind(this)
-    this.handlePageChange = this.handlePageChange.bind(this)
     this.showNbrOfLike = this.showNbrOfLike.bind(this)
     this.showNbrOfDisLike = this.showNbrOfDisLike.bind(this)
     this.showButtonDislike = this.showButtonDislike.bind(this)
@@ -203,13 +200,8 @@ class ListPost extends Component {
     )
   }
 
-  handlePageChange(pageNumber) {
-    this.setState({ activePage: pageNumber })
-  }
-
   render() {
     const { allPosts } = this.props
-    const { activePage } = this.state
     const style = {
       fontSize: '24px'
     }
@@ -290,13 +282,6 @@ class ListPost extends Component {
           </div>
           <Categories allPosts={allPosts} />
         </div>
-        <Pagination
-          activePage={activePage}
-          itemsCountPerPage={2}
-          totalItemsCount={allPosts.length}
-          pageRangeDisplayed={5}
-          onChange={this.handlePageChange}
-        />
       </div>
     )
   }

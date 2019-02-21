@@ -31,7 +31,6 @@ class MeilleurPost extends Component {
 
   render() {
     const { postsMostPopular } = this.state
-    console.log('postsMostPopular: ', postsMostPopular)
 
     return (
       <div className="col-lg-4 col-md-4">

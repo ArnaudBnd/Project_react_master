@@ -10,6 +10,7 @@ import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import store from '../../../store'
 import setAuthorizationToken from '../../../utils/setAuthorizationToken'
+import setSocketConnection from '../../../utils/connectionSocket'
 import { apiPath } from '../../../utils/urlAPI'
 
 /**
@@ -37,6 +38,8 @@ export function login(user) {
         // On stock un token dans le localStorage
         localStorage.setItem('jwtToken', token)
         setAuthorizationToken(token)
+        setSocketConnection(token)
+
         // dispatch méthode
         store.dispatch(userAuth(jwt.decode(token)))
         resolve(response.config.data)

@@ -37,10 +37,10 @@ class Profil extends Component {
     getUserProfil(identifier).then((res) => {
       if (res) {
         this.setState({
-          username: res.username,
-          email: res.email,
-          passwordDigest: res.password_digest,
-          id: res.id
+          username: res[0].username,
+          email: res[0].email,
+          passwordDigest: res[0].password_digest,
+          id: res[0].id
         })
       }
     })

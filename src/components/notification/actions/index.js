@@ -14,9 +14,9 @@ import { apiPath } from '../../../utils/urlAPI'
   * Disptach post register
   * @param {Object} comment
   */
-const getCom = getComs => ({
-  type: 'GET_ALL_COM_FROM_USER',
-  getComs
+const getCom = comsFromUser => ({
+  type: 'GET_ALL_COMS_FROM_USER_TO_NOTIFY',
+  comsFromUser
 })
 
 /**

@@ -33,6 +33,7 @@ class FilteredListPost extends Component {
 
   onSubmit(e) {
     e.preventDefault()
+    console.log('here')
     const { allPosts, inputValue } = this.state
     const tmp = allPosts.filter(element => (
       element.title.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
@@ -69,7 +70,7 @@ class FilteredListPost extends Component {
                   <input type="text" onChange={this.onChange} className="form-control" placeholder="Search Post" />
                 </div>
                 <div className="pull-left">
-                  <button type="button" className="btn btn-secondary">rechercher</button>
+                  <button type="submit" className="btn btn-secondary">rechercher</button>
                 </div>
               </form>
             </div>

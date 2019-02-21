@@ -56,7 +56,7 @@ export function userPostComment(comment) {
     axios.post(`${apiPath}/api/comments`, comment)
       .then((res) => {
         store.dispatch(userComment(res.config.data))
-        resolve(res)
+        resolve(res.data.comment)
       })
   })
 }
@@ -104,6 +104,15 @@ export function getCommentFoot() {
       store.dispatch(getComments(res.data.comments))
       resolve(res.data.comments)
     })
+  })
+}
+
+export function getAllDataToNotify(idPost) {
+  return new Promise((resolve) => {
+    axios.get(`${apiPath}/api/notifications/notify/${idPost}`)
+      .then((res) => {
+        resolve(res.data.dataUser)
+      })
   })
 }
 

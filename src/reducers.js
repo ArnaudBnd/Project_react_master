@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 
 import user from './components/signup/reducer'
+import notification from './components/notification/reducer'
 import auth from './components/login/reducer'
 import foot from './components/pages/foot/reducer'
 import profilUser from './components/pages/profil/reducer'
@@ -21,5 +22,6 @@ export default combineReducers({
   allPosts,
   allComs,
   displayPostFromAccueil,
-  NousContacter
+  NousContacter,
+  notification
 })

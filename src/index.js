@@ -1,12 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-
+import io from 'socket.io-client'
 import jwt from 'jsonwebtoken'
 import Router from './routes.js'
 import store from './store'
 import setAuthorizationToken from './utils/setAuthorizationToken'
+import setSocketConnection from './utils/connectionSocket'
 import userAuth from './components/login/actions/index'
+
+window.io = io
+window.socket = null
 
 // Garder le token pour le dispatcher
 if (localStorage.jwtToken) {
@@ -17,6 +21,7 @@ if (localStorage.jwtToken) {
     } else {
       console.log('token user still good')
       setAuthorizationToken(localStorage.jwtToken)
+      setSocketConnection(localStorage.jwtToken)
       store.dispatch(userAuth(jwt.decode(localStorage.jwtToken)))
     }
   })
