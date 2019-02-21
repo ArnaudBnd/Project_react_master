@@ -19,8 +19,9 @@ if (localStorage.jwtToken) {
     if (err) {
       console.log(('err: ', err))
     } else {
-      console.log('token user still good')
       setAuthorizationToken(localStorage.jwtToken)
+      // lorsqu'on re-actualise la page
+      // on renvoie le token au server pour recupérer les infos du user connecté
       setSocketConnection(localStorage.jwtToken)
       store.dispatch(userAuth(jwt.decode(localStorage.jwtToken)))
     }

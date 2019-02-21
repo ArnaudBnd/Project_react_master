@@ -21,9 +21,10 @@ class Notification extends Component {
     this.getAllComFromUser()
 
     if (window.socket !== null) {
-      console.log('--> notification envoyé')
+      // Lorsque le user recoit une notification
       window.socket.on('userDataToNotify', (data) => {
         console.log('userDataToNotify', data)
+        // ICI on afficher et recupere le commentaire
       })
     } else {
       console.log('--> notification nop')
@@ -34,7 +35,7 @@ class Notification extends Component {
     const { auth } = this.props
 
     getAllComFomUser(auth.auth.username).then((res) => {
-      // On crée que les notifs des coms qui sont pas celui du user connecté
+      // On crée que les notifs des coms qui different du user connecté
       const tmp = res.filter(com => com.user !== auth.auth.username)
       this.setState({
         allComToDisplayFromUser: tmp
@@ -42,9 +43,9 @@ class Notification extends Component {
     })
   }
 
-  displayNotifCom(user, comment, date, idPost) {
+  displayNotifCom(user, comment, date, idPost, idMap) {
     return (
-      <li className="notification-box">
+      <li className="notification-box" key={idMap}>
         <a href={`/displayPostFromAccueil/${idPost}`}>
           <div className="row">
             <div className="col-lg-8 col-sm-8 col-8">
@@ -68,16 +69,19 @@ class Notification extends Component {
 
     return (
       allComToDisplayFromUser
-        .map(post => this.displayNotifCom(
+        .map((post, idMap) => this.displayNotifCom(
           post.user,
           post.comment,
           post.date,
-          post.idPost
+          post.idPost,
+          idMap
         ))
     )
   }
 
   render() {
+    const { allComToDisplayFromUser } = this.state
+
     return (
       <li className="nav-item dropdown">
         <a className="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,7 +90,12 @@ class Notification extends Component {
         <ul className="dropdown-menu">
           <li className="head text-light bg-dark">
             <div className="col-lg-12 col-sm-12 col-12">
-              <span>Notifications (3)</span>
+              <span>
+              Notifications
+              (
+                {allComToDisplayFromUser.length}
+              )
+              </span>
               {' '}
               <a href="" className="float-right text-light">Mark all as read</a>
             </div>

@@ -12,7 +12,15 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: [ 'react-hot-loader', 'babel-loader', 'eslint-loader' ]
+        loaders: [ 'react-hot-loader', 'babel-loader'],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+            quiet: true
+        }
       },
       {
       test: /\.(pdf|jpg|png|gif|svg|ico)$/,

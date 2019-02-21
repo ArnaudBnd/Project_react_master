@@ -17,7 +17,8 @@ import userAuth from '../../login/actions'
 export function logout() {
   // Suppression du token
   localStorage.removeItem('jwtToken')
-  window.socket.emit('disconnect', null)
+  // On previent de la deconnection
+  window.socket.emit('disconnect')
   window.socket = null
   // delete Authorization
   setAuthorizationToken(false)
