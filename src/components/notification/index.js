@@ -17,20 +17,29 @@ class Notification extends Component {
     this.showNotifCom = this.showNotifCom.bind(this)
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getAllComFromUser()
 
     if (window.socket !== null) {
       // Lorsque le user recoit une notification
       window.socket.on('userDataToNotify', (data) => {
-        console.log('userDataToNotify', data)
-        // ICI on afficher et recupere le commentaire
+        const { allComToDisplayFromUser } = this.state
+
+        allComToDisplayFromUser.push(data.commentToSend)
+
+        this.setState({
+          allComToDisplayFromUser
+        })
       })
     } else {
       console.log('--> notification nop')
     }
   }
 
+  /**
+   * getAllComFromUser
+   * Recup tout les posts à notifier
+   */
   getAllComFromUser() {
     const { auth } = this.props
 
@@ -43,9 +52,15 @@ class Notification extends Component {
     })
   }
 
-  displayNotifCom(user, comment, date, idPost, idMap) {
+  /**
+   * displayNotifCom
+   * Lors du rendu
+   * @param read, user, comment, date, idPost, idMap
+   * @return dom HTML
+   */
+  displayNotifCom(read, user, comment, date, idPost, idMap) {
     return (
-      <li className="notification-box" key={idMap}>
+      <li style={read === false ? { backgroundColor: 'grey' } : { backgroundColor: 'none' }} className="notification-box" key={idMap}>
         <a href={`/displayPostFromAccueil/${idPost}`}>
           <div className="row">
             <div className="col-lg-8 col-sm-8 col-8">
@@ -64,12 +79,17 @@ class Notification extends Component {
     )
   }
 
+  /**
+   * showNotifCom
+   * loop for get data
+   */
   showNotifCom() {
     const { allComToDisplayFromUser } = this.state
 
     return (
       allComToDisplayFromUser
         .map((post, idMap) => this.displayNotifCom(
+          post.read,
           post.user,
           post.comment,
           post.date,
@@ -81,11 +101,22 @@ class Notification extends Component {
 
   render() {
     const { allComToDisplayFromUser } = this.state
+    const comsNotReads = allComToDisplayFromUser.filter(com => com.read === false)
 
     return (
       <li className="nav-item dropdown">
         <a className="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i className="fa fa-bell" />
+          { comsNotReads.length > 0
+            ? (
+              <b>
+                Notifications
+                (
+                {comsNotReads.length}
+                )
+              </b>
+            )
+            : 'Notification'
+          }
         </a>
         <ul className="dropdown-menu">
           <li className="head text-light bg-dark">
