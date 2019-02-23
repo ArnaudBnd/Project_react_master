@@ -33,3 +33,17 @@ export function getAllComFomUser(username) {
       })
   })
 }
+
+/**
+* Permet de mettre à jour un post
+* En base
+* @param {Object} idPostToUpdate, title, content
+* @return {Object} Promise response
+*/
+export function notificationReading(id_element_notify) {
+  return new Promise((resolve) => {
+    axios.post(`${apiPath}/api/notifications/update`, { id_element_notify }).then((res) => {
+      resolve(res.data.notification)
+    })
+  })
+}

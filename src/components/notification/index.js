@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllComFomUser } from './actions/index'
+import { getAllComFomUser, notificationReading } from './actions/index'
 
 import './index.css'
 
@@ -12,6 +12,7 @@ class Notification extends Component {
       allComToDisplayFromUser: []
     }
 
+    this.onSubmitToReadNotif = this.onSubmitToReadNotif.bind(this)
     this.displayNotifCom = this.displayNotifCom.bind(this)
     this.getAllComFromUser = this.getAllComFromUser.bind(this)
     this.showNotifCom = this.showNotifCom.bind(this)
@@ -37,6 +38,30 @@ class Notification extends Component {
   }
 
   /**
+   * onSubmitToReadNotif
+   * actions notificationReading, getAllComFomUser
+   * lorsque l'utilisateur clique sur la notification
+   * @param e, id_element_notify, read
+   */
+  onSubmitToReadNotif(e, id_element_notify, read) {
+    const { auth } = this.props
+
+    if (read === false) {
+      notificationReading(id_element_notify).then((res) => {
+        if (res.read) {
+          getAllComFomUser(auth.auth.username).then((resp) => {
+            // On crée que les notifs des coms qui different du user connecté
+            const tmp = resp.filter(com => com.user !== auth.auth.username)
+            this.setState({
+              allComToDisplayFromUser: tmp
+            })
+          })
+        }
+      })
+    }
+  }
+
+  /**
    * getAllComFromUser
    * Recup tout les posts à notifier
    */
@@ -54,14 +79,14 @@ class Notification extends Component {
 
   /**
    * displayNotifCom
-   * Lors du rendu
-   * @param read, user, comment, date, idPost, idMap
+   * Lors du rendu, on affiche les notifications
+   * @param read, user, comment, date, idPost, id_element_notify, idMap
    * @return dom HTML
    */
-  displayNotifCom(read, user, comment, date, idPost, idMap) {
+  displayNotifCom(read, user, comment, date, idPost, id_element_notify, idMap) {
     return (
-      <li style={read === false ? { backgroundColor: 'grey' } : { backgroundColor: 'none' }} className="notification-box" key={idMap}>
-        <a href={`/displayPostFromAccueil/${idPost}`}>
+      <li className="notification-box" key={idMap}>
+        <a href={`/displayPostFromAccueil/${idPost}`} onClick={e => this.onSubmitToReadNotif(e, id_element_notify, read)} style={read === false ? { backgroundColor: 'silver' } : { backgroundColor: 'white' }}>
           <div className="row">
             <div className="col-lg-8 col-sm-8 col-8">
               <strong className="text-info">{user}</strong>
@@ -94,6 +119,7 @@ class Notification extends Component {
           post.comment,
           post.date,
           post.idPost,
+          post.id_element_notify,
           idMap
         ))
     )
