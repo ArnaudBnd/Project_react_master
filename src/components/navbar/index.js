@@ -86,6 +86,8 @@ class NavBar extends Component {
             <ul className="nav navbar-nav navbar-right">
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  {auth.isAuthentificated ? auth.auth.username : ''}
+                  {' '}
                   <i className="fa fa-user" />
                   <span className="caret" />
                 </a>

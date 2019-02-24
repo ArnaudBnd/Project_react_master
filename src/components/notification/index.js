@@ -154,7 +154,6 @@ class Notification extends Component {
               )
               </span>
               {' '}
-              <a href="" className="float-right text-light">Mark all as read</a>
             </div>
           </li>
           {this.showNotifCom()}

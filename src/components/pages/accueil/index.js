@@ -4,7 +4,7 @@ class Accueil extends Component {
   render() {
     return (
       <div>
-        <h1>SALUT</h1>
+        <h1>SALUT Premiere page</h1>
       </div>
     )
   }
