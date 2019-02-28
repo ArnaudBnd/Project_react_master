@@ -12,7 +12,6 @@ class NousContacter extends Component {
     super(props)
 
     this.state = {
-      username: '',
       email: '',
       phone: '',
       title: '',
@@ -54,7 +53,6 @@ class NousContacter extends Component {
 
   render() {
     const {
-      username,
       email,
       phone,
       title,
@@ -67,15 +65,6 @@ class NousContacter extends Component {
       <div className="contenaire">
         <form id="contact" onSubmit={this.onSubmit}>
           <h3>Ecrivez nous un message</h3>
-
-          <TextFieldGroup
-            error={errors.username}
-            label="Username"
-            onChange={this.onChange}
-            value={username}
-            type="text"
-            field="username"
-          />
           <TextFieldGroup
             error={errors.username}
             label="Email"

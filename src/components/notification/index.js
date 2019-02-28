@@ -25,12 +25,15 @@ class Notification extends Component {
       // Lorsque le user recoit une notification
       window.socket.on('userDataToNotify', (data) => {
         const { allComToDisplayFromUser } = this.state
+        const { auth } = this.props
 
-        allComToDisplayFromUser.push(data.commentToSend)
+        if (data.commentToSend.user !== auth.auth.username) {
+          allComToDisplayFromUser.push(data.commentToSend)
 
-        this.setState({
-          allComToDisplayFromUser
-        })
+          this.setState({
+            allComToDisplayFromUser
+          })
+        }
       })
     } else {
       console.log('--> notification nop')

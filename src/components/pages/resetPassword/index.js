@@ -100,7 +100,6 @@ class ResetPassword extends Component {
 
   render() {
     const { errors } = this.state
-    console.log('render')
 
     return (
       <div>
@@ -113,7 +112,7 @@ class ResetPassword extends Component {
               label="Password"
               onChange={this.handleChange}
               field="password"
-              type="text"
+              type="password"
             />
 
             <TextFieldGroup
@@ -121,7 +120,7 @@ class ResetPassword extends Component {
               label="Confirm password"
               onChange={this.handleChange}
               field="confirmPassword"
-              type="text"
+              type="password"
             />
 
             <br />
