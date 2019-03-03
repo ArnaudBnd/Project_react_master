@@ -47,3 +47,12 @@ export function notificationReading(id_element_notify) {
     })
   })
 }
+
+export function delNotifById(id_element_notify) {
+  return new Promise((resolve) => {
+    axios.delete(`${apiPath}/api/notifications/${id_element_notify}`)
+      .then((res) => {
+        resolve(res.status)
+      })
+  })
+}

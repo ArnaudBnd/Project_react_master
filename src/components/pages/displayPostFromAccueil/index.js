@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import {
   getPostWithId,
   getComWithIdPost,
+  getLikes,
+  getDisLikes,
   postUserComment,
   deleteComment,
   deletePost,
@@ -18,10 +20,13 @@ class DisplayPostFromAccueil extends Component {
     this.state = {
       postToDisplay: [],
       comToDisplay: [],
+      likesToDisplay: [],
+      disLikesToDisplay: [],
       comment: '',
       idCategorie: '2'
     }
 
+    this.getAllLikes = this.getAllLikes.bind(this)
     this.getPost = this.getPost.bind(this)
     this.getCom = this.getCom.bind(this)
     this.dispatchAllCom = this.dispatchAllCom.bind(this)
@@ -33,6 +38,10 @@ class DisplayPostFromAccueil extends Component {
     this.showPost = this.showPost.bind(this)
     this.showButtonDeleteComment = this.showButtonDeleteComment.bind(this)
     this.showButtonDeletePost = this.showButtonDeletePost.bind(this)
+    this.showButtonLike = this.showButtonLike.bind(this)
+    this.showButtonDislike = this.showButtonDislike.bind(this)
+    this.showNbrOfLike = this.showNbrOfLike.bind(this)
+    this.showNbrOfDisLike = this.showNbrOfDisLike.bind(this)
     this.showCom = this.showCom.bind(this)
     this.displayPost = this.displayPost.bind(this)
     this.displayComment = this.displayComment.bind(this)
@@ -41,6 +50,8 @@ class DisplayPostFromAccueil extends Component {
   componentWillMount() {
     this.getPost()
     this.getCom()
+    this.getAllLikes()
+    this.getAllDislikes()
   }
 
   componentDidUpdate() {
@@ -68,13 +79,38 @@ class DisplayPostFromAccueil extends Component {
 
     postUserComment(objComment).then(() => {
       getComWithIdPost(match.params.idPost).then((res) => {
-        console.log('res: ', res)
         this.setState({
           comToDisplay: res
         })
       })
     })
     this.resetInput()
+  }
+
+  /**
+   * getAllLikes
+   * pour récupérer tout les likes
+   * actions getLikes() triggered
+   */
+  getAllLikes() {
+    getLikes().then((res) => {
+      this.setState({
+        likesToDisplay: res
+      })
+    })
+  }
+
+  /**
+   * getAllDislikes
+   * pour récupérer tout les dislikes
+   * actions getDisLikes() triggered
+   */
+  getAllDislikes() {
+    getDisLikes().then((res) => {
+      this.setState({
+        disLikesToDisplay: res
+      })
+    })
   }
 
   /**
@@ -186,14 +222,8 @@ class DisplayPostFromAccueil extends Component {
           </div>
           <div className="postinfobot">
             <div className="likeblock pull-left">
-              <a href="#" className="up">
-                <i className="fa fa-thumbs-o-up" />
-                25
-              </a>
-              <a href="#" className="down">
-                <i className="fa fa-thumbs-o-down" />
-                3
-              </a>
+              {this.showButtonLike(idPost)}
+              {this.showButtonDislike(idPost)}
             </div>
             <div className="prev pull-left">
               <a href="#">
@@ -372,6 +402,58 @@ class DisplayPostFromAccueil extends Component {
     }
 
     return null
+  }
+
+  /**
+   * show button Like
+   * @params idPost
+   * @return dom html
+   */
+  showButtonLike(idPost) {
+    return (
+      <a href="#" className="up">
+        <i className="fa fa-thumbs-o-up" />
+        {this.showNbrOfLike(idPost)}
+      </a>
+    )
+  }
+
+  /**
+   * show button Dislike
+   * @params idPost
+   * @return dom html
+   */
+  showButtonDislike(idPost) {
+    return (
+      <a href="#" className="down">
+        <i className="fa fa-thumbs-o-down" />
+        {this.showNbrOfDisLike(idPost)}
+      </a>
+    )
+  }
+
+  /**
+   * showNbrOfLike
+   * @params idPost
+   * @return tmp.length
+   */
+  showNbrOfLike(idPost) {
+    const { likesToDisplay } = this.state
+    const tmp = likesToDisplay.filter(like => like.id_element === idPost)
+
+    return tmp.length
+  }
+
+  /**
+   * showNbrOfDisLike
+   * @params idPost
+   * @return tmp.length
+   */
+  showNbrOfDisLike(idPost) {
+    const { disLikesToDisplay } = this.state
+    const tmp = disLikesToDisplay.filter(disLike => disLike.id_element === idPost)
+
+    return tmp.length
   }
 
   showCom() {

@@ -11,6 +11,50 @@ import store from '../../../../store'
 import { apiPath } from '../../../../utils/urlAPI'
 
 /**
+  * Disptach like register
+  * @param {Object} coms
+  */
+const getAllLikes = allLikes => ({
+  type: 'GET_ALL_LIKES',
+  allLikes
+})
+
+/**
+  * Get all like
+  *
+  */
+export function getLikes() {
+  return new Promise((resolve) => {
+    axios.get(`${apiPath}/api/likes`).then((res) => {
+      resolve(res.data.likes)
+      store.dispatch(getAllLikes(res.data.likes))
+    })
+  })
+}
+
+/**
+  * Disptach alldislike register
+  * @param {Object} allDisLikes
+  */
+const getAllDisLikes = allDisLikes => ({
+  type: 'GET_ALL_DISLIKES',
+  allDisLikes
+})
+
+/**
+  * Get all like
+  *
+  */
+export function getDisLikes() {
+  return new Promise((resolve) => {
+    axios.get(`${apiPath}/api/disLikes`).then((res) => {
+      resolve(res.data.disLikes)
+      store.dispatch(getAllDisLikes(res.data.disLikes))
+    })
+  })
+}
+
+/**
   * getPost
   * Dispatch méthode to reducer
   * @param {Object} post

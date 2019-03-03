@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllComFomUser, notificationReading } from './actions/index'
+import { getAllComFomUser, notificationReading, delNotifById } from './actions/index'
 
 import './index.css'
 
@@ -13,6 +13,7 @@ class Notification extends Component {
     }
 
     this.onSubmitToReadNotif = this.onSubmitToReadNotif.bind(this)
+    this.onSubmitDeleteNotif = this.onSubmitDeleteNotif.bind(this)
     this.displayNotifCom = this.displayNotifCom.bind(this)
     this.getAllComFromUser = this.getAllComFromUser.bind(this)
     this.showNotifCom = this.showNotifCom.bind(this)
@@ -65,6 +66,27 @@ class Notification extends Component {
   }
 
   /**
+   * onSubmitDeleteNotif
+   * actions delNotifById
+   * lorsque l'utilisateur clique pour supprimer une notif
+   * @param e, id_element_notify
+   */
+  onSubmitDeleteNotif(e, id_element_notify) {
+    e.preventDefault()
+    const { allComToDisplayFromUser } = this.state
+    const newNotif = allComToDisplayFromUser
+      .filter(notif => notif.id_element_notify !== id_element_notify)
+
+    delNotifById(id_element_notify).then((resp) => {
+      if (resp === 200) {
+        this.setState({
+          allComToDisplayFromUser: newNotif
+        })
+      }
+    })
+  }
+
+  /**
    * getAllComFromUser
    * Recup tout les posts à notifier
    */
@@ -101,6 +123,7 @@ class Notification extends Component {
             <div className="col-lg-1 col-sm-3 col-3">
               <span className="badge pull-right">foot</span>
             </div>
+            <button type="submit" onClick={e => this.onSubmitDeleteNotif(e, id_element_notify)}>supprimer</button>
           </div>
         </a>
       </li>

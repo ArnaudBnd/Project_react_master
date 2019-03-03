@@ -12,7 +12,7 @@ class Profil extends Component {
       email: '',
       passwordDigest: '',
       id: '',
-      updateProfil: ''
+      isUpdate: false
     }
 
     this.getProfil = this.getProfil.bind(this)
@@ -61,7 +61,7 @@ class Profil extends Component {
   updateProfile() {
     postToUpdateProfil(this.state).then(() => {
       this.setState({
-        updateProfil: 'Le profil à été changé'
+        isUpdate: true
       })
     })
   }
@@ -71,10 +71,10 @@ class Profil extends Component {
       username,
       email,
       passwordDigest,
-      updateProfil
+      isUpdate
     } = this.state
 
-    return (
+    const profilNotChange = (
       <section className="contentProfil">
         <div className="container">
           <div className="row">
@@ -95,15 +95,34 @@ class Profil extends Component {
                     <p>password</p>
                     <input value={passwordDigest} onChange={this.handlePasswordChange} type="password" className="form-control" placeholder="Password" required />
                   </div>
-                  <button type="button" onClick={this.updateProfile} id="submit" name="submit" className="btn btn-primary pull-right">Update</button>
+                  <button type="button" onClick={this.updateProfile} id="submit" name="submit" className="btn btn-primary pull-right">Update profil</button>
                   <br />
                 </form>
-                { updateProfil }
               </div>
             </div>
           </div>
         </div>
       </section>
+    )
+
+    const profilChange = (
+      <div className="jumbotron text-xs-center">
+        <h1 className="display-3">Le profil à été changé</h1>
+        <hr />
+        <p>
+          Having trouble?
+          <a href="/nousContacter">Contact us</a>
+        </p>
+        <p className="lead">
+          <a className="btn btn-primary btn-sm" href="/accueilUser" role="button">Continue to accueil</a>
+        </p>
+      </div>
+    )
+
+    return (
+      <div>
+        { isUpdate ? profilChange : profilNotChange }
+      </div>
     )
   }
 }
