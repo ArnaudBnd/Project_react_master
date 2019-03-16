@@ -84,25 +84,27 @@ class MesPosts extends Component {
     return (
       <div key={idMap}>
         <hr />
-        <h3>
-          Title:
-          {title}
-        </h3>
-        <h4>
-          Post:
+        <a href={`/displayPostFromAccueil/${id}`}>
+          <h3>
+            Title:
+            {title}
+          </h3>
+          <h4>
+            Post:
+            {' '}
+            {content}
+          </h4>
+          <h5>
+            Date:
+            {' '}
+            {`${AMJ}/${H}`}
+            {' '}
+          </h5>
+          Catérogie:
           {' '}
-          {content}
-        </h4>
-        <h5>
-          Date:
-          {' '}
-          {`${AMJ}/${H}`}
-          {' '}
-        </h5>
-        Catérogie:
-        {' '}
-        {categorie === '2' ? ' Foot' : ' Tennis'}
-        <br />
+          {categorie === '2' ? ' Foot' : ' Tennis'}
+          <br />
+        </a>
         <button type="submit" onClick={e => this.handleDeletePost(e, id)}>
           Supprimer
         </button>
@@ -153,6 +155,7 @@ class MesPosts extends Component {
 
   render() {
     const { allComs } = this.state
+    console.log(allComs)
 
     return (
       <div className="container">

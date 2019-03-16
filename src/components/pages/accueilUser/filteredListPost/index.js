@@ -33,7 +33,7 @@ class FilteredListPost extends Component {
 
   onSubmit(e) {
     e.preventDefault()
-    console.log('here')
+
     const { allPosts, inputValue } = this.state
     const tmp = allPosts.filter(element => (
       element.title.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1

@@ -7,6 +7,7 @@ import isEmpty from 'lodash/isEmpty'
 * @return {Object or Boolean} errors or isValid
 */
 export default function validateInput(data) {
+  console.log(data)
   const errors = {}
   const regexValidation = /[a-zA-Z0-9]{8,}/
 

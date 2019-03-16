@@ -19,27 +19,29 @@ class MesCommentaires extends Component {
     })
   }
 
-  displayAllComsFromUser(idMap, comment, date, id, categorie) {
+  displayAllComsFromUser(idMap, comment, date, id, categorie, idPost) {
     const AMJ = date.substring(0, 10)
     const H = date.substring(11, 19)
 
     return (
       <div key={idMap}>
         <hr />
-        <h5>
-          Date:
+        <a href={`/displayPostFromAccueil/${idPost}`}>
+          <h5>
+            Date:
+            {' '}
+            {`${AMJ}/${H}`}
+            {' '}
+          </h5>
+          Catérogie:
           {' '}
-          {`${AMJ}/${H}`}
-          {' '}
-        </h5>
-        Catérogie:
-        {' '}
-        {categorie === '2' ? ' Foot' : ' Tennis'}
-        <h4>
-          Commentaire:
-          {' '}
-          {comment}
-        </h4>
+          {categorie === '2' ? ' Foot' : ' Tennis'}
+          <h4>
+            Commentaire:
+            {' '}
+            {comment}
+          </h4>
+        </a>
         <button type="submit" onClick={e => this.handleDeletePost(e, id)}>
           Supprimer
         </button>
@@ -62,7 +64,8 @@ class MesCommentaires extends Component {
           item.comment,
           item.date,
           item.id,
-          item.idCategorie
+          item.idCategorie,
+          item.idPost
         ))
     )
   }

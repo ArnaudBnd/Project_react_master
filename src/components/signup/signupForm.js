@@ -67,7 +67,7 @@ class SignUpForm extends Component {
       isUserExists(val).then((res) => {
         let invalid
         if (res) {
-          errors[field] = `Cet utilisateur existe déja ${field}`
+          errors[field] = `Cet ${field} existe déja`
           invalid = true
         } else {
           errors[field] = ''

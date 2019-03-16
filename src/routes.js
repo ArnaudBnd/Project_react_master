@@ -13,8 +13,6 @@ import NousContacter from './components/pages/nousContacter/index.js'
 import ResetPassword from './components/pages/resetPassword/index.js'
 import DisplayPostFromAccueil from './components/pages/displayPostFromAccueil/index.js'
 import Accueil from './components/pages/accueil'
-
-// Nécessite une auth
 import requireAuth from './utils/requireAuth'
 
 const Router = () => (

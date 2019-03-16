@@ -20,7 +20,7 @@ export default function (ComposedComponent) {
       }
     }
 
-    // Redirection quand l'utilisateur logout
+    // Redirection quand l'utilisateur se deconnect
     componentWillUpdate(nextProps) {
       const { history } = this.props
 
