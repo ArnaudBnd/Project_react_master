@@ -253,7 +253,7 @@ class Foot extends Component {
               {this.showButtonDelete(user, idPost)}
             </div>
             <div className="col-lg-4">
-              <button type="submit" onClick={e => this.onSubmitDisplayCom(e, idPost)} className="btn btn-primary ">Show more</button>
+              <button type="submit" style={{ marginBottom: '30px' }} onClick={e => this.onSubmitDisplayCom(e, idPost)} className="btn btn-primary ">Show more</button>
             </div>
             <div className="col-lg-4">
               {this.showButtonUpdate(user, idPost)}
@@ -482,7 +482,7 @@ class Foot extends Component {
 
     if (user === authUsername) {
       return (
-        <div>
+        <div style={{ marginBottom: '30px' }}>
           <button type="submit" style={{ backgroundColor: 'red' }} onClick={e => this.handleDeleteArticle(e, idPost)} className="btn btn-primary">
             Delete
           </button>
@@ -652,9 +652,6 @@ class Foot extends Component {
               </div>
               <div className="col-lg-8 col-md-8">
                 <form id="formFoot" style={{ display: 'none' }} onSubmit={this.onSubmit}>
-                  <div className="form-group">
-                    <h3 className="control-label">Foot</h3>
-                  </div>
                   <div className="form-group">
                     <h3 className="control-label">Titre</h3>
                     <input type="text" name="title" className="form-control" onChange={this.onChange} />
